@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import GroupCard from "../../components/groups/GroupCard";
 
 function ViewGroups() {
-  const [GroupList, setGroupList] = useState([]);
+  const [GroupList, setGroupList] = useState(null);
 
   //pop up search on 'discover groups' button click
   const [showSearchBar, setShowSearchBar] = useState(false);
 
-  //get all products
-  const data = async () => {
-    const response = await axios.get(
-      "http://localhost:3002/api/group/getGroups"
-    );
-    setGroupList(response.data);
-    console.log(response.data);
-  };
-
+  //get all groups
   useEffect(() => {
-    data();
+    fetch("http://localhost:3002/api/group/getGroups")
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setGroupList(data);
+      });
   }, []);
 
   return (
@@ -70,21 +70,7 @@ function ViewGroups() {
           </span>
         </button>
       </div>
-      <div class="grid grid-cols-4 gap-4 py-4 px-8">
-        {GroupList.map((group) => (
-          <div class="max-w-sm rounded overflow-hidden shadow-lg">
-            <img
-              class="w-full"
-              src="images/inst.jpg"
-              alt="Sunset in the mountains"
-            />
-            <div class="px-6 py-4">
-              <div class="font-bold text-xl mb-2">{group.groupName}</div>
-              <p class="text-gray-700 text-base">{group.description}</p>
-            </div>
-          </div>
-        ))}
-      </div>
+      {GroupList && <GroupCard groups={GroupList} />}
     </div>
   );
 }
