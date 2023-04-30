@@ -1,5 +1,3 @@
-import React from "react";
-
 const GroupCard = ({ groups }) => {
   return (
     <div class="grid grid-cols-4 gap-4 py-4 px-8">
