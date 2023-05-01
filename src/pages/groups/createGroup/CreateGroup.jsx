@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import axios from "axios";
-import { uploadFile } from "../../firebase";
+import { uploadFile } from "../../../firebase";
+import { useNavigate } from "react-router-dom";
 
 function CreateGroup() {
   const file_input_ref = useRef(null);
@@ -10,86 +11,92 @@ function CreateGroup() {
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
 
+  const history = useNavigate();
+
   function handlesubmit(e) {
     e.preventDefault();
 
-    // setState("Uploading...");
-    // if (file_input_ref.current) {
-    //   // Get the file dom reference
-    //   let file_input = file_input_ref.current;
+    setState("Uploading...");
+    if (file_input_ref.current) {
+      // Get the file dom reference
+      let file_input = file_input_ref.current;
 
-    //   // Check if file is set
-    //   if (!file_input.files || file_input.files.length <= 0) {
-    //     setState("You don't have a file selected.");
-    //     return;
-    //   }
-    //   // Get file object
-    //   let file = file_input.files[0];
-    //   console.log(file);
-    //   // Check the image size - 2MB for example
-    //   if (file.size > 2 * 1024 * 1024) {
-    //     setState(
-    //       "You exceed the max file size. " +
-    //         "Consider learning IT" +
-    //         "So you can learn yourself how to code a image scaler. " +
-    //         "Do it in C++ with web assembly, " +
-    //         "So you can run it on a browser. " +
-    //         "Now you can scale this image" +
-    //         "To fit the requirement. " +
-    //         "If you figure it out, " +
-    //         "Hatsune miku will personally come to your home and" +
-    //         "Give you a kiss. "
-    //     );
-    //     return;
-    //   }
+      // Check if file is set
+      if (!file_input.files || file_input.files.length <= 0) {
+        setState("You don't have a file selected.");
+        return;
+      }
+      // Get file object
+      let file = file_input.files[0];
+      console.log(file);
+      // Check the image size - 2MB for example
+      if (file.size > 2 * 1024 * 1024) {
+        setState(
+          "You exceed the max file size. " +
+            "Consider learning IT" +
+            "So you can learn yourself how to code a image scaler. " +
+            "Do it in C++ with web assembly, " +
+            "So you can run it on a browser. " +
+            "Now you can scale this image" +
+            "To fit the requirement. " +
+            "If you figure it out, " +
+            "Hatsune miku will personally come to your home and" +
+            "Give you a kiss. "
+        );
+        return;
+      }
 
-    // try {
-    //   uploadFile(file).then((res) => {
-    //     console.log("this is response", res);
+      try {
+        uploadFile(file).then((res) => {
+          console.log("this is response", res);
 
-    //     console.log("handleSumit");
-    //     const newGroup = {
-    //       groupName,
-    //       category,
-    //       description,
-    //       groupIcon: res,
-    //     };
+          console.log("handleSubmit");
+          const newGroup = {
+            groupName,
+            category,
+            description,
+            groupIcon: res,
+          };
 
-    //     axios
-    //       .post("http://localhost:3002/api/group/addgroup", newGroup)
-    //       .then(() => {
-    //         alert("Group Created Successfully!!");
-    //         console.log("axios");
-    //         //history
-    //       })
-    //       .catch((err) => {
-    //         console.log(err.message);
-    //       });
+          axios
+            .post("http://localhost:3002/api/group/addgroup", newGroup)
+            .then(() => {
+              alert("Group Created Successfully!!");
+              console.log("axios");
+              history("/user/viewgroups");
+            })
+            .catch((err) => {
+              console.log(err.message);
+            });
+        });
+      } catch (e) {
+        alert("firbase save failed");
+      }
+    }
+
+    // console.log("handleSumit");
+    // const newGroup = {
+    //   groupName,
+    //   category,
+    //   description,
+    // };
+
+    // axios
+    //   .post("http://localhost:3002/api/group/addgroup", newGroup)
+    //   .then(() => {
+    //     alert("Group Created Successfully!!");
+    //     console.log("axios");
+    //     history("/user/viewgroups");
     //   });
-    // } catch (e) {
-    //   alert("firbase save failed");
-    // }
-    // }
-
-    console.log("handleSumit");
-    const newGroup = {
-      groupName,
-      category,
-      description,
-    };
-
-    axios
-      .post("http://localhost:3002/api/group/addgroup", newGroup)
-      .then(() => {
-        alert("Group Created Successfully!!");
-        console.log("axios");
-        //history
-      });
   }
 
   return (
     <div className="grid h-screen place-items-center">
-      <form className="w-full max-w-lg" onSubmit={handlesubmit}>
+      <form
+        className="w-full max-w-lg"
+        onSubmit={handlesubmit}
+        encType="multipart/form-data"
+      >
         <div className="flex flex-wrap -mx-3 mb-6">
           <div className="w-full px-3">
             <label
