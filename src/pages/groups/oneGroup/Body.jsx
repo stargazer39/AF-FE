@@ -1,36 +1,77 @@
-import React from "react";
+import Posts from "./Posts";
+import Question from "./Questions";
+import { useState, useEffect } from "react";
 
-function Body() {
+function CustTwoTab(props) {
+  const [ShowTab, setShowTab] = useState("post");
+  const [postButtonColor, setPostButtonColor] = useState("#007BED");
+  const [quesButtonColor, setQuesButtonColor] = useState("#b8b8b8");
+  const [rc, setRc] = useState("#007BED");
+  const [qc, setQc] = useState("#c9c9c9");
+
+  const postButton = () => {
+    setShowTab("post");
+    setPostButtonColor("#007BED");
+    setQuesButtonColor("#b8b8b8");
+    setRc("#007BED");
+    setQc("#c9c9c9");
+  };
+
+  const quesButton = () => {
+    setShowTab("ques");
+    setPostButtonColor("#b8b8b8");
+    setQuesButtonColor("#007BED");
+    setRc("#c9c9c9");
+    setQc("#007BED");
+  };
+
+
+  /////////// read post data
+
+  const [GroupList, setGroupList] = useState(null);
+
+  //get all groups
+  useEffect(() => {
+    fetch("http://localhost:3002/api/group/getGroups")
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setGroupList(data);
+      });
+  }, []);
+
+
   return (
-    <div class="container">
-  <h2>Dynamic Tabs</h2>
-  <ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
-    <li><a data-toggle="tab" href="#menu1">Menu 1</a></li>
-    <li><a data-toggle="tab" href="#menu2">Menu 2</a></li>
-    <li><a data-toggle="tab" href="#menu3">Menu 3</a></li>
-  </ul>
-
-  <div class="tab-content">
-    <div id="home" class="tab-pane fade in active">
-      <h3>HOME</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    <div>
+      <div className="pt-5 w-80 items-center pl-4">
+        <div className="flex grid-flow-row w-80  bg-gray-00 p-4">
+          <div
+            className="w-full text-1xl font-bold border-solid border-b-2"
+            style={{ color: postButtonColor, borderColor: rc }}
+            onClick={postButton}
+          >
+            Posts
+          </div>
+          <div
+            className="w-full text-1xl font-bold border-solid border-b-2 pl-2"
+            style={{ color: quesButtonColor, borderColor: qc }}
+            onClick={quesButton}
+          >
+            Questions
+          </div>
+        </div>
+      </div>
+      <div className=" p-0 w-full bg-orange-00">
+        {ShowTab == "post" ? (
+          <Posts groups={GroupList} />
+        ) : (
+          <Question />
+        )}
+      </div>
     </div>
-    <div id="menu1" class="tab-pane fade">
-      <h3>Menu 1</h3>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-    </div>
-    <div id="menu2" class="tab-pane fade">
-      <h3>Menu 2</h3>
-      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-    </div>
-    <div id="menu3" class="tab-pane fade">
-      <h3>Menu 3</h3>
-      <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-    </div>
-  </div>
-</div>
   );
 }
 
-export default Body;
+export default CustTwoTab;

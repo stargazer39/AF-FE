@@ -50,7 +50,7 @@ function CreateGroup() {
         uploadFile(file).then((res) => {
           console.log("this is response", res);
 
-          console.log("handleSumit");
+          console.log("handleSubmit");
           const newGroup = {
             groupName,
             category,
