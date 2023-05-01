@@ -12,6 +12,7 @@ const PostPanel = () => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [addQuestionModal, setAddQuestionModal] = useState(false);
+
   const handleOpen = () => {
     setIsOpen(!isOpen);
   };
@@ -50,7 +51,7 @@ const PostPanel = () => {
           </div>
           <div className="flex justify-center">
             <div className="flex justify-around w-3/5">
-              <div className="flex" onClick={()=>{setAddQuestionModal(true)}}>
+              <div className="flex" onClick={()=>{setAddQuestionModal(!addQuestionModal)}}>
                 <HelpOutlineIcon />
                 <span>Ask</span>
                 {addQuestionModal && ( <AddQuestionModal setAddQuestionModal={setAddQuestionModal} />)}
