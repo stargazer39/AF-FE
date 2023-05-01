@@ -7,9 +7,12 @@ import React, { useEffect, useState } from "react";
 import MyGroups from "../../components/groups/MyGroups";
 import ButtonGroup from "../../components/groups/ButtonGroup";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function ViewMyGroups() {
   const [GroupList, setGroupList] = useState(null);
+
+  const history = useNavigate();
 
   //get all groups
   useEffect(() => {
@@ -23,6 +26,10 @@ function ViewMyGroups() {
       });
   }, []);
 
+  function refresh() {
+    window.parent.location = window.parent.location.href;
+  }
+
   //delete groups
   const handleDelete = (_id) => {
     axios
@@ -30,13 +37,11 @@ function ViewMyGroups() {
       .then(() => {
         alert("deleted Successfully!!");
         console.log(_id);
-        //history
+        refresh();
       })
       .catch((err) => {
         console.log(err.message);
       });
-
-    //refresh()
   };
 
   return (

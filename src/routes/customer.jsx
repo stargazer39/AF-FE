@@ -4,6 +4,7 @@ import TestPage from "../pages/Test/test";
 import CreateGroup from "../pages/groups/CreateGroup";
 import ViewGroups from "../pages/groups/ViewGroups";
 import ViewMyGroups from "../pages/groups/ViewMyGroups";
+import UpdateGroup from "../pages/groups/UpdateGroup";
 
 export default function CustomerRouter() {
   return (
@@ -15,6 +16,7 @@ export default function CustomerRouter() {
       <Route path="/user/addGroup" element={<CreateGroup />} />
       <Route path="/user/viewgroups" element={<ViewGroups />} />
       <Route path="/user/viewmygroups" element={<ViewMyGroups />} />
+      <Route path="/updateProduct/:_id" element={<UpdateGroup />} />
     </Routes>
   );
 }
