@@ -4,8 +4,8 @@
 */
 
 import React, { useEffect, useState } from "react";
-import MyGroups from "../../components/groups/MyGroups";
-import ButtonGroup from "../../components/groups/ButtonGroup";
+import MyGroups from "./MyGroups";
+import ButtonGroup from "./ButtonGroup";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 

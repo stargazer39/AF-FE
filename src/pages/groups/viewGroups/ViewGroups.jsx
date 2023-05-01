@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import GroupCard from "../../components/groups/GroupCard";
-import ButtonGroup from "../../components/groups/ButtonGroup";
+import GroupCard from "./GroupCard";
+import ButtonGroup from "./ButtonGroup";
 
 function ViewGroups() {
   const [GroupList, setGroupList] = useState(null);

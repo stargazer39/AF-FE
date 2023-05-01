@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import axios from "axios";
-import { uploadFile } from "../../firebase";
+import { uploadFile } from "../../../firebase";
 import { useNavigate } from "react-router-dom";
 
 function CreateGroup() {
