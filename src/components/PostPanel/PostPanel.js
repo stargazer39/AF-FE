@@ -5,12 +5,13 @@ import CreateIcon from "@mui/icons-material/Create";
 import RateReviewTwoToneIcon from "@mui/icons-material/RateReviewTwoTone";
 import Card from "@mui/joy/Card";
 import GetCurrentUser from "../../hooks/getCurrentUser";
+import AddQuestionModal from "../../pages/questions/questionModals/addQuestion";
 
 const PostPanel = () => {
   const user = GetCurrentUser();
 
   const [isOpen, setIsOpen] = useState(false);
-
+  const [addQuestionModal, setAddQuestionModal] = useState(false);
   const handleOpen = () => {
     setIsOpen(!isOpen);
   };
@@ -49,9 +50,10 @@ const PostPanel = () => {
           </div>
           <div className="flex justify-center">
             <div className="flex justify-around w-3/5">
-              <div className="flex">
+              <div className="flex" onClick={()=>{setAddQuestionModal(true)}}>
                 <HelpOutlineIcon />
                 <span>Ask</span>
+                {addQuestionModal && ( <AddQuestionModal setAddQuestionModal={setAddQuestionModal} />)}
               </div>
               <div className="h-6 w-0.5 bg-black"></div>
               <div className="flex">
