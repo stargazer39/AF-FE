@@ -46,7 +46,8 @@ function ViewMyGroups() {
 
   return (
     <div>
-      <ButtonGroup />
+      
+
       {GroupList && <MyGroups groups={GroupList} handleDelete={handleDelete} />}
     </div>
   );
