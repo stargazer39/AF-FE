@@ -6,13 +6,14 @@ function Posts() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [userId, setUserID] = useState("1");
+  const [groupId, setGroupId] = useState("1");
 
   useEffect(() => {
-    fetch(`http://localhost:3002/api/post/users/${userId}/posts`)
+    fetch(`http://localhost:3002/api/post/groups/${groupId}/posts`)
       .then((response) => response.json())
       .then((data) => setPosts(data))
       .catch((error) => console.error(error));
-  }, [userId]);
+  }, [groupId]);
 
   return (
     <div className="flex flex-row justify-center">
