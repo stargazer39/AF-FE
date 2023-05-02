@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import GroupCard from "./GroupCard";
 import ButtonGroup from "./ButtonGroup";
 import ViewMyGroups from "./ViewMyGroups";
+import FollowingGroups from "./FollowingGroups";
 
 function ViewGroups() {
   const [GroupList, setGroupList] = useState(null);
@@ -26,6 +27,7 @@ function ViewGroups() {
       <ViewMyGroups/>
       <h4 class="mb-2 mt-0 text-2xl font-medium leading-tight text-primary px-9 mt-9 pt-4"> My Followings</h4>
       <hr/>
+      {GroupList && <FollowingGroups groupsFollow={GroupList} />}
       <h4 class="mb-2 mt-0 text-2xl font-medium leading-tight text-primary px-9 mt-9 pt-4"> All Groups</h4>
       <hr/>
       {GroupList && <GroupCard groups={GroupList} />}
