@@ -1,9 +1,11 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { getStorage, ref, deleteObject } from "firebase/storage";
 import { uploadFile } from "../../firebase";
 import { genRandFileName } from "../../utils/random";
 import { IoCloseSharp } from "react-icons/io5";
 import { RiImageAddLine } from "react-icons/ri";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function EditPost() {
   const myRefname = useRef(null);
@@ -12,10 +14,33 @@ function EditPost() {
   const [imagesList, setimagesList] = useState([]);
   const [imagesUrlList, setImagesUrlList] = useState([]);
   const [imagesUrls, setImagesUrls] = useState([]);
+  const post = useSelector((state) => state.post).selectedPost;
+  console.log("post in edit", post);
 
   const [userId, setUserID] = useState("1");
   const [groupId, setGroupID] = useState("1");
+  const [postId, setPostId] = useState(undefined);
   const [contentText, setContentText] = useState("");
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (post) {
+      setPostId(post._id);
+      setUserID(post.userId);
+      setGroupID(post.groupId);
+      setContentText(post.contentText);
+      setImagesUrls(post.images);
+      let data = [];
+      let dataUrls = [];
+      post.images.forEach((image) => {
+        data.push(image[0]);
+        dataUrls.push(image[1]);
+      });
+      setimagesList(data);
+      setImagesUrlList(dataUrls);
+    }
+  }, [post]);
 
   function handleChange(e) {
     console.log(e.target.files);
@@ -74,46 +99,52 @@ function EditPost() {
       });
   }
   async function sendData(e) {
-    // e.preventDefault();
-    // // if (!validations()) return 0;
-    // let newImagesUrls = [];
-    // let newImageList = imagesList;
-    // let count = 0;
-    // imagesUrls.forEach((image) => {
-    //   let val = newImageList.indexOf(image[0]);
-    //   if (val === -1) {
-    //     console.log(
-    //       image[0] + " !!!!!!!!!" + imagesList[0] + " not found! gonna delete!"
-    //     );
-    //     deleteOldPhotos(image[0]);
-    //   } else {
-    //     console.log(image + " found! gonna add");
-    //     newImagesUrls.push(imagesUrls[count]);
-    //     newImageList.splice(val, 1);
-    //   }
-    //   count = count + 1;
-    // });
-    // // setLoading(true);
-    // let newArray = newImageList.map((image) =>
-    //   uploadFile(image, genRandFileName(), "test")
-    // );
-    // let fileDetails = await Promise.all(newArray);
-    // console.log(fileDetails);
-    // fileDetails.forEach((item) => {
-    //   newImagesUrls.push(item);
-    // });
-    // console.log("newImagesUrls",newImagesUrls);
-    // const newItem = {
-    //   name,
-    //   price,
-    //   gender,
-    //   tags,
-    //   imagesUrls: newImagesUrls,
-    //   description,
-    //   color,
-    //   quantity,
-    // };
-    // console.log(newItem);
+    e.preventDefault();
+    // if (!validations()) return 0;
+    let newImagesUrls = [];
+    let newImageList = imagesList;
+    let count = 0;
+    imagesUrls.forEach((image) => {
+      let val = newImageList.indexOf(image[0]);
+      if (val === -1) {
+        console.log(
+          image[0] + " !!!!!!!!!" + imagesList[0] + " not found! gonna delete!"
+        );
+        deleteOldPhotos(image[0]);
+      } else {
+        console.log(image + " found! gonna add");
+        newImagesUrls.push(imagesUrls[count]);
+        newImageList.splice(val, 1);
+      }
+      count = count + 1;
+    });
+    // setLoading(true);
+    let newArray = newImageList.map((image) =>
+      uploadFile(image, genRandFileName(), "test")
+    );
+    let fileDetails = await Promise.all(newArray);
+    console.log(fileDetails);
+    fileDetails.forEach((item) => {
+      newImagesUrls.push(item);
+    });
+    console.log("newImagesUrls", newImagesUrls);
+    const newItem = {
+      contentText,
+      images: newImagesUrls,
+    };
+    console.log(newItem);
+    fetch(`http://localhost:3002/api/post/posts/${postId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newItem),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        navigate("/posts");
+      })
+      .catch((error) => console.error(error));
   }
   return (
     <div>

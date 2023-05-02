@@ -8,17 +8,19 @@ import {
   AiFillLike,
   AiFillDislike,
 } from "react-icons/ai";
-
+import { useDispatch } from "react-redux";
 import { MdOutlineMoreHoriz } from "react-icons/md";
 import useDebounce from "../../hook/debounce";
 import { Lightbox } from "react-modal-image";
 import { useNavigate } from "react-router-dom";
+import { orderActions } from "../../Store/post-slice";
 
 function Post({ post }) {
   const navigate = useNavigate();
   const [innerPost, setInnerPost] = useState(post);
   const [seeMore, setSeeMore] = useState(false);
   const debouncedValue = useDebounce(innerPost || {}, 1000);
+  const dispatch = useDispatch();
   const [changed, setChanged] = useState(false);
   const [selectedImage, setSelectedImage] = useState(undefined);
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
@@ -79,6 +81,11 @@ function Post({ post }) {
     setSelectedImage(undefined);
   }
 
+  function handleEditClick() {
+    dispatch(orderActions.replaceSelectedPost({ post: innerPost }));
+    navigate("/editPost");
+  }
+
   return (
     <div className="mt-14 ">
       <div className="border-2 border-gray-300 border-b-0 p-3">
@@ -95,7 +102,10 @@ function Post({ post }) {
               />
               {isOptionsOpen && (
                 <div className="w-[300px] h-[130px] bg-white shadow-2xl absolute right-5 top-5 flex flex-col">
-                  <span className="p-5 border-b-2 border-gray-500 border-opacity-30 hover:bg-slate-300">
+                  <span
+                    onClick={() => handleEditClick()}
+                    className="p-5 border-b-2 border-gray-500 border-opacity-30 hover:bg-slate-300"
+                  >
                     Edit
                   </span>
                   <span className="p-5 hover:bg-slate-300">Delete</span>
