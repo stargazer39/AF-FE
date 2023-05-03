@@ -6,14 +6,13 @@ import ModifyAnsModal from "../questionModals/modifyAnswer";
 export function AnswerBox({ data }) {
   const currentUser = GetCurrentUser();
   console.log(currentUser?._id)
-  const userid = "645172f16b58b487e327877c"
   const showButton = true;
   const [deleteModal, setDeleteModal] = useState(false)
   const [modifyModal, setModifyModal] = useState(false)
 
   const deleteModalData = {
     setRemoveAnswerModal: setDeleteModal,
-    userID : userid,
+    userID : data.id,
     answerID : data.answerID,
     setUpdate: data.setUpdate,
     update: data.update

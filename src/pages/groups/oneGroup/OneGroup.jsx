@@ -26,7 +26,8 @@ function OneGroup() {
     <div>
       <Navbar />
       {Group && <Header group={Group} />}
-      <Body />
+      {/* {console.log(Group[0]?.groupName)} */}
+      <Body groupName={Group[0]?.groupName} />
     </div>
   );
 }

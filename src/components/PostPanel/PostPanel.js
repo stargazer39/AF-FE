@@ -3,10 +3,11 @@ import { useState } from "react";
 import GetCurrentUser from "../../hooks/getCurrentUser";
 import UserPosts from "../../pages/posts/UserPosts";
 import HeaderLikeThing from "../../pages/posts/HeaderLikeThing";
-import Questions from "../../pages/questions/questions";
+import Questions from "../../pages/questions/userQuestions";
 
 const PostPanel = () => {
   const user = GetCurrentUser();
+  const userID = user?._id
   const [type, setType] = useState("post");
 
   const [isOpen, setIsOpen] = useState(false);
@@ -78,8 +79,11 @@ const PostPanel = () => {
         </div>
       </Card> */}
       <HeaderLikeThing setType={setType} />
-      {type === "post" ? <UserPosts /> : <Questions profileID={user?._id} />}
+      
+      {type === "post" ? <UserPosts /> : <Questions profileID={userID} />}
+     
       <br />
+      {/* {type === "question" && ()} */}
     </>
   );
 };
