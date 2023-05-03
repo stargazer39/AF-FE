@@ -3,7 +3,7 @@ import axios from 'axios';
 import { API_ENDPOINT } from '../../../config';
 import GetCurrentUser from '../../../hooks/getCurrentUser';
 
-function AddQuestionModal({ setAddQuestionModal, groupData }) {
+function AddQuestionModal({ setAddQuestionModal, groupData, updater }) {
   const user = GetCurrentUser();
   const [question, setQuestion] = useState("")
   const [group, setGroup] = useState(groupData)
@@ -34,6 +34,9 @@ function AddQuestionModal({ setAddQuestionModal, groupData }) {
         data,
       )
       console.log(response.data)
+      setTimeout(() => {
+        updater.setUpdate(updater.update + 1);
+      }, 500);
     } catch (error) {
       console.error(error)
     }

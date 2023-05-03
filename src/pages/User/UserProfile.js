@@ -99,12 +99,12 @@ const UserProfile = () => {
       </div>
       <br></br>
       <hr className="bg-black h-1" />
-      <div className=" flex px-28 mt-7">
-        <div className=" flex">
+      <div className=" flex px-28 mt-7 ">
+        <div className=" flex w-full ">
           <div className="">
             <ProgressPanel />
           </div>
-          <div className="flex-[2] ml-10">
+          <div className="flex-[2] ml-10  ">
             <PostPanel />
           </div>
         </div>

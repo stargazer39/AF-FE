@@ -78,12 +78,15 @@ const PostPanel = () => {
           </div>
         </div>
       </Card> */}
-      <HeaderLikeThing setType={setType} />
+      <div>
+        <HeaderLikeThing setType={setType} />
+        
+        {type === "post" ? <UserPosts /> : <Questions profileID={userID} />}
       
-      {type === "post" ? <UserPosts /> : <Questions profileID={userID} />}
+        <br />
+      </div>
      
-      <br />
-      {/* {type === "question" && ()} */}
+
     </>
   );
 };

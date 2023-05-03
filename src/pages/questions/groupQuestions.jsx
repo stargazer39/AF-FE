@@ -12,6 +12,10 @@ function GroupQuestions({groupData, profileID}) {
   const [userID , setUserID] = useState("")
   const [update, setUpdate] = useState(1)
   const group = groupData || "noGrp"
+  const updater = {
+    update : update,
+    setUpdate : setUpdate
+  }
 
   useEffect(() => {
       axios
@@ -34,17 +38,17 @@ function GroupQuestions({groupData, profileID}) {
       {questions.map(ques => (
         <div className="flex flex-col w-5/6">
 
-        <div className="bg-amber-300/40">
+        <div className="bg-blue-300/40">
             <QuestionBox data={QuestionData={name: ques.UserName, date: ques.createdAt, question: ques.Question, userId: userID, id: ques._id , setUpdate: setUpdate, update: update}} />
         </div>
         {ques.Answers.map(ans => (
           <div className="bg-gray-100 ">
-              <AnswerBox data={AnswerData = {name: ans.answerPersonName, answer: ans.answer, userId: userID, answerID: ans._id, id: ques._id, setUpdate: setUpdate, update: update }} />
+              <AnswerBox data={AnswerData = {answerPID: ans.answerPersonID, name: ans.answerPersonName, answer: ans.answer, userId: userID, answerID: ans._id, id: ques._id, setUpdate: setUpdate, update: update }} />
           </div>
         ))}
         </div>
       ))}
-      {quesModal && (<AddQuestionModal groupData={group} setAddQuestionModal={setQuesModal}/>)}
+      {quesModal && (<AddQuestionModal groupData={group} setAddQuestionModal={setQuesModal} updater={updater}/>)}
     </>
   );
 }
