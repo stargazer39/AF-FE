@@ -3,8 +3,11 @@ import Posts from "./Posts";
 import Question from "./Questions";
 import { useState, useEffect } from "react";
 import GroupQuestions from "../../questions/groupQuestions";
+import GetCurrentUser from "../../../hooks/getCurrentUser";
 
 function CustTwoTab(props) {
+  const user = GetCurrentUser()
+  const id = user?._id
   const [ShowTab, setShowTab] = useState("post");
   const [postButtonColor, setPostButtonColor] = useState("#007BED");
   const [quesButtonColor, setQuesButtonColor] = useState("#b8b8b8");
@@ -64,7 +67,7 @@ function CustTwoTab(props) {
         </div>
       </div>
       <div className=" p-0 w-full bg-orange-00 flex flex-col">
-        {ShowTab === "post" ? <GroupPosts /> : <GroupQuestions groupData={props.groupName}/>}
+        {ShowTab === "post" ? <GroupPosts /> : <GroupQuestions groupData={props.groupName} profileID={id}/>}
         {/* {ShowTab === "post" ? " ": <GroupQuestions groupData={props.groupName}/>} */}
       </div>
     </div>

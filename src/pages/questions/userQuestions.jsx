@@ -4,7 +4,6 @@ import { QuestionBox } from "./ques&ansBox/questionBox";
 import { AnswerBox } from "./ques&ansBox/answerBox";
 import { useEffect } from "react";
 import AddQuestionModal from "./questionModals/addQuestion";
-import GetCurrentUser from "../../hooks/getCurrentUser";
 
 
 function Questions({groupData, profileID}) {
@@ -41,7 +40,7 @@ function Questions({groupData, profileID}) {
         <div className="flex flex-col w-6/6 mb-16">
 
         <div className="">
-            <QuestionBox data={QuestionData={name: ques.UserName, date: ques.createdAt, question: ques.Question, userId: userID, id: ques._id , setUpdate: setUpdate, update: update}} />
+            <QuestionBox data={QuestionData={count: ques.Answers.length ,name: ques.UserName, date: ques.createdAt, question: ques.Question, userId: userID, id: ques._id , setUpdate: setUpdate, update: update}} />
         </div>
         {ques.Answers.map(ans => (
           <div className="">
