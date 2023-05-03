@@ -14,6 +14,7 @@ import useDebounce from "../../hook/debounce";
 import { Lightbox } from "react-modal-image";
 import { useNavigate } from "react-router-dom";
 import { orderActions } from "../../Store/post-slice";
+import { useSelector } from "react-redux";
 
 function Post({ post }) {
   const navigate = useNavigate();
@@ -25,8 +26,9 @@ function Post({ post }) {
   const [selectedImage, setSelectedImage] = useState(undefined);
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
   const postId = post._id; // Replace with the ID of the post you want to like
-  const userId = "1"; // Replace with the ID of the user who is liking the post
-  const isCurrentUser = post.userId === userId;
+  const user = useSelector((state) => state.user).currentUser;
+  const userId = user?._id;
+  const isCurrentUser = post.userId === user?._id;
 
   useEffect(() => {
     // update post
@@ -48,28 +50,36 @@ function Post({ post }) {
   }, [debouncedValue, postId]);
 
   function handleLikeClick() {
-    setChanged(true);
-    const updatedPost = { ...innerPost };
-    const updateLike = { ...updatedPost.like };
-    if (userId in updatedPost.like) {
-      delete updateLike[userId];
-      setInnerPost({ ...updatedPost, like: updateLike });
+    if (!!userId) {
+      setChanged(true);
+      const updatedPost = { ...innerPost };
+      const updateLike = { ...updatedPost.like };
+      if (userId in updatedPost.like) {
+        delete updateLike[userId];
+        setInnerPost({ ...updatedPost, like: updateLike });
+      } else {
+        updateLike[userId] = 1;
+        setInnerPost({ ...updatedPost, like: updateLike });
+      }
     } else {
-      updateLike[userId] = 1;
-      setInnerPost({ ...updatedPost, like: updateLike });
+      alert("Please login to react");
     }
   }
 
   function handleDislikeClick() {
-    setChanged(true);
-    const updatedPost = { ...innerPost };
-    const updateDisLike = { ...updatedPost.disLike };
-    if (userId in updatedPost.disLike) {
-      delete updateDisLike[userId];
-      setInnerPost({ ...updatedPost, disLike: updateDisLike });
+    if (userId) {
+      setChanged(true);
+      const updatedPost = { ...innerPost };
+      const updateDisLike = { ...updatedPost.disLike };
+      if (userId in updatedPost.disLike) {
+        delete updateDisLike[userId];
+        setInnerPost({ ...updatedPost, disLike: updateDisLike });
+      } else {
+        updateDisLike[userId] = 1;
+        setInnerPost({ ...updatedPost, disLike: updateDisLike });
+      }
     } else {
-      updateDisLike[userId] = 1;
-      setInnerPost({ ...updatedPost, disLike: updateDisLike });
+      alert("Please login to react");
     }
   }
 

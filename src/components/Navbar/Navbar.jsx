@@ -24,6 +24,8 @@ import { useEffect, useState } from "react";
 import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import { getUser } from "../../services/User";
+import { useDispatch } from "react-redux";
+import { userActions } from "../../Store/user-slice";
 
 const ICON_SIZE = "medium";
 const pages = ["", "Question/recommended", "user/viewgroups"];
@@ -53,6 +55,13 @@ const ResponsiveAppBar = () => {
   const [USER, setUSER] = useState(unregisteredUser);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(
+      userActions.replaceUser({ currentUser: jwt_decode(currentUser).data })
+    );
+  }, [dispatch, currentUser]);
 
   useEffect(() => {
     if (currentUser) {
