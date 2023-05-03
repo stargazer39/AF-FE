@@ -1,13 +1,9 @@
 import * as React from "react";
 import { useState } from "react";
-import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
-import CreateIcon from "@mui/icons-material/Create";
-import RateReviewTwoToneIcon from "@mui/icons-material/RateReviewTwoTone";
-import Card from "@mui/joy/Card";
 import GetCurrentUser from "../../hooks/getCurrentUser";
-import AddQuestionModal from "../../pages/questions/questionModals/addQuestion";
 import UserPosts from "../../pages/posts/UserPosts";
 import HeaderLikeThing from "../../pages/posts/HeaderLikeThing";
+import Questions from "../../pages/questions/questions";
 
 const PostPanel = () => {
   const user = GetCurrentUser();
@@ -66,6 +62,7 @@ const PostPanel = () => {
                   <AddQuestionModal setAddQuestionModal={setAddQuestionModal} />
                 )}
               </div>
+              {addQuestionModal && ( <AddQuestionModal setAddQuestionModal={setAddQuestionModal} groupData={"noGrp"} />)}
               <div className="h-6 w-0.5 bg-black"></div>
               <div className="flex">
                 <RateReviewTwoToneIcon />
@@ -84,6 +81,7 @@ const PostPanel = () => {
       {type === "post" ? <UserPosts /> : "Questions"}
 
       <br />
+      <Questions profileID={user?._id} />
     </>
   );
 };

@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import axios from "axios";
 import { uploadFile } from "../../../firebase";
 import { useNavigate } from "react-router-dom";
+import GetCurrentUser from "../../../hooks/getCurrentUser";
 
 function CreateGroup() {
   const file_input_ref = useRef(null);
@@ -10,6 +11,10 @@ function CreateGroup() {
   const [groupName, setGroupName] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
+  const [adminId, setadminId] = useState("");
+
+  //get current user
+  const currentUser = GetCurrentUser()
 
   const history = useNavigate();
 
@@ -56,6 +61,7 @@ function CreateGroup() {
             category,
             description,
             groupIcon: res,
+            adminId : currentUser._id,
           };
 
           axios
