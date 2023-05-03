@@ -97,11 +97,16 @@ function Post({ post }) {
     navigate("/editPost");
   }
 
+  console.log(post?.photoUrl);
+  const imageUrl =
+    post?.photoUrl || "https://img.freepik.com/free-icon/user_318-159711.jpg";
   return (
     <div className="mt-14 ">
       <div className="border-2 border-gray-300 border-b-0 p-3">
         <div className="mb-4 flex flex-row items-center">
-          <div className="h-12 w-12 border-2 border-gray-300 rounded-full mr-5 "></div>
+          <div className="h-12 w-12 border-2 border-gray-300 rounded-full mr-5 overflow-hidden ">
+            <img src={imageUrl} alt="user" className="h-full w-full" />
+          </div>
           <span className="font-bold flex-grow">
             {post?.userName || "unknown user"}
           </span>
