@@ -2,10 +2,15 @@ import { Link, useParams } from "react-router-dom";
 import GetCurrentUser from "../../../hooks/getCurrentUser";
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { groupActions } from "../../../Store/group-slice";
 
 const FollowingGroups = ({ groupsFollow }) => {
   const [stat, useStat] = useState([]);
   const { _id } = useParams();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   console.log(_id);
   //get current user
   const currentUser = GetCurrentUser();
@@ -22,6 +27,11 @@ const FollowingGroups = ({ groupsFollow }) => {
     //setFollowing(true);
   };
 
+  function groupClicked(group) {
+    dispatch(groupActions.replaceSelectedGroup({ selectedGroup: group }));
+    navigate(`/singleGroup/${group._id}`);
+  }
+
   return (
     <div class="grid grid-cols-4 gap-4 py-4 px-8 ">
       {groupsFollow &&
@@ -29,13 +39,13 @@ const FollowingGroups = ({ groupsFollow }) => {
           <>
             {group.followersUserId.includes(currentUser && currentUser._id) ? (
               <div class="max-w-sm rounded overflow-hidden shadow-lg">
-                <Link to={`/singleGroup/${group._id}`}>
+                <div onClick={() => groupClicked(group)}>
                   <img
                     class="w-full h-60"
                     src={group.groupIcon[1]}
                     alt="Group icon"
                   />
-                </Link>
+                </div>
                 <button type="button">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
