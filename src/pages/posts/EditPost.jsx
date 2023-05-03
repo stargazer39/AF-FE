@@ -142,7 +142,7 @@ function EditPost() {
     })
       .then((response) => response.json())
       .then((data) => {
-        navigate("/posts");
+        navigate(-1);
       })
       .catch((error) => console.error(error));
   }
@@ -243,6 +243,7 @@ function EditPost() {
                 id="first_name"
                 class=" border-b-2 align-middle border-gray-300 text-gray-900  rounded-lg focus:outline-none block w-full p-2.5 dark:placeholder-gray-400 dark:text-white dark:focus:outline-none text-md"
                 placeholder="Description"
+                value={contentText}
                 onChange={(e) => setContentText(e.target.value)}
                 required
               />
@@ -253,7 +254,7 @@ function EditPost() {
               onClick={(e) => sendData(e)}
               type="submit"
               value={"Create"}
-              className="bg-red-600 text-white h-10 w-[200px] cursor-pointer hover:bg-red-700 mr-10 mt-10 mb-20 font-bold"
+              className="bg-blue-600 text-white h-10 w-[200px] cursor-pointer hover:bg-red-700 mr-10 mt-10 mb-20 font-bold"
             />
             <div
               //   onClick={() => {

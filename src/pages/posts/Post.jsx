@@ -29,6 +29,7 @@ function Post({ post }) {
   const user = useSelector((state) => state.user).currentUser;
   const userId = user?._id;
   const isCurrentUser = post.userId === user?._id;
+  console.log("post in post", post);
 
   useEffect(() => {
     // update post
@@ -101,7 +102,9 @@ function Post({ post }) {
       <div className="border-2 border-gray-300 border-b-0 p-3">
         <div className="mb-4 flex flex-row items-center">
           <div className="h-12 w-12 border-2 border-gray-300 rounded-full mr-5 "></div>
-          <span className="font-bold flex-grow">Nisal Sashmitha</span>
+          <span className="font-bold flex-grow">
+            {post?.userName || "unknown user"}
+          </span>
           {isCurrentUser && (
             <div className="relative z-10">
               <MdOutlineMoreHoriz
