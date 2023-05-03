@@ -6,6 +6,7 @@ import RateReviewTwoToneIcon from "@mui/icons-material/RateReviewTwoTone";
 import Card from "@mui/joy/Card";
 import GetCurrentUser from "../../hooks/getCurrentUser";
 import AddQuestionModal from "../../pages/questions/questionModals/addQuestion";
+import Questions from "../../pages/questions/questions";
 
 const PostPanel = () => {
   const user = GetCurrentUser();
@@ -55,7 +56,7 @@ const PostPanel = () => {
                 <HelpOutlineIcon />
                 <span>Ask</span>
               </div>
-              {addQuestionModal && ( <AddQuestionModal setAddQuestionModal={setAddQuestionModal} />)}
+              {addQuestionModal && ( <AddQuestionModal setAddQuestionModal={setAddQuestionModal} groupData={"noGrp"} />)}
               <div className="h-6 w-0.5 bg-black"></div>
               <div className="flex">
                 <RateReviewTwoToneIcon />
@@ -71,6 +72,7 @@ const PostPanel = () => {
         </div>
       </Card>
       <br />
+      <Questions profileID={user?._id}/>
     </>
   );
 };

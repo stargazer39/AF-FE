@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { API_ENDPOINT } from '../../../config';
 
-function AddQuestionModal({ setAddQuestionModal }) {
+function AddQuestionModal({ setAddQuestionModal, groupData }) {
   const [userID, setUserID] = useState("")
   const [userName, setUserName] = useState("Semora chan")
   const [question, setQuestion] = useState("")
-  const [group, setGroup] = useState("")
+  const [group, setGroup] = useState(groupData)
   const [error, setError] = useState("")
 
   function validation(){

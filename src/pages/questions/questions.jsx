@@ -5,15 +5,17 @@ import { AnswerBox } from "./ques&ansBox/answerBox";
 import { useEffect } from "react";
 
 
-function Questions() {
+function Questions({groupData, profileID}) {
   const [questions, setQuestions] = useState([])
   const [userID , setUserID] = useState("")
   const [update, setUpdate] = useState(1)
+  const group = groupData || "noGrp"
 
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:3002/api/question/getAllQuestions`)
+    if(!profileID){
+      axios
+      .get(`http://localhost:3002/api/question/getAllQuestions?group=${group}`)
       .then(response => {
         setQuestions(response.data)
         console.log(response.data)
@@ -22,6 +24,19 @@ function Questions() {
       .catch(error => {
         console.log(error)
       })
+    } else {
+      axios
+      .get(`http://localhost:3002/api/question/getSingleUserQuestions?userID="${profileID}"`)
+      .then(response => {
+        setQuestions(response.data)
+        console.log(response.data)
+        console.log(questions)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    }
+    
     }, [update])
 
     var QuestionData
