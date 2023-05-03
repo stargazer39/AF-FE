@@ -1,27 +1,46 @@
-import React, { useState, useRef, useEffect } from "react";
-import { genRandFileName } from "./../../utils/random";
+import React, { useEffect, useRef, useState } from "react";
+import { getStorage, ref, deleteObject } from "firebase/storage";
 import { uploadFile } from "../../firebase";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { RiImageAddLine } from "react-icons/ri";
+import { genRandFileName } from "../../utils/random";
 import { IoCloseSharp } from "react-icons/io5";
-import "./newProduct.css";
+import { RiImageAddLine } from "react-icons/ri";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-function CreatePost() {
-  const [userId, setUserID] = useState("1");
-  const [groupId, setGroupID] = useState("1");
-  const [contentText, setContentText] = useState("");
-  const [likes, setLikes] = useState({});
-  const [comments, setComments] = useState([]);
+function EditPost() {
+  const myRefname = useRef(null);
   const [selectedfile, setSelectedfile] = useState(null);
   const [selectedfileIndex, setSelectedfileIndex] = useState(-1);
   const [imagesList, setimagesList] = useState([]);
   const [imagesUrlList, setImagesUrlList] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const myRefname = useRef(null);
-  const [message, setMessage] = useState("");
+  const [imagesUrls, setImagesUrls] = useState([]);
+  const post = useSelector((state) => state.post).selectedPost;
+  console.log("post in edit", post);
+
+  const [userId, setUserID] = useState("1");
+  const [groupId, setGroupID] = useState("1");
+  const [postId, setPostId] = useState(undefined);
+  const [contentText, setContentText] = useState("");
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (post) {
+      setPostId(post._id);
+      setUserID(post.userId);
+      setGroupID(post.groupId);
+      setContentText(post.contentText);
+      setImagesUrls(post.images);
+      let data = [];
+      let dataUrls = [];
+      post.images.forEach((image) => {
+        data.push(image[0]);
+        dataUrls.push(image[1]);
+      });
+      setimagesList(data);
+      setImagesUrlList(dataUrls);
+    }
+  }, [post]);
 
   function handleChange(e) {
     console.log(e.target.files);
@@ -49,7 +68,9 @@ function CreatePost() {
 
   function imgRemoveClicked() {
     let temparr = [...imagesUrlList];
+    let tempar2 = [...imagesList];
     temparr.splice(selectedfileIndex, 1);
+    tempar2.splice(selectedfileIndex, 1);
     if (temparr.length === 0) {
       setSelectedfile(null);
       setSelectedfileIndex(-1);
@@ -59,59 +80,75 @@ function CreatePost() {
     }
 
     setImagesUrlList(temparr);
-
-    let tempUrlarr = [...imagesUrlList];
-    tempUrlarr.splice(selectedfileIndex, 1);
-
-    setimagesList(tempUrlarr);
+    setimagesList(tempar2);
   }
 
+  async function deleteOldPhotos(name) {
+    const storage = getStorage();
+
+    // Create a reference to the file to delete
+    const desertRef = ref(storage, `test/${name}`);
+
+    // Delete the file
+    deleteObject(desertRef)
+      .then(() => {
+        console.log(name + " deleted");
+      })
+      .catch((error) => {
+        console.log(name + " not deleted");
+      });
+  }
   async function sendData(e) {
     e.preventDefault();
-
-    setLoading(true);
-    setMessage("loading...");
-    let newArray = imagesList.map((image) =>
+    // if (!validations()) return 0;
+    let newImagesUrls = [];
+    let newImageList = imagesList;
+    let count = 0;
+    imagesUrls.forEach((image) => {
+      let val = newImageList.indexOf(image[0]);
+      if (val === -1) {
+        console.log(
+          image[0] + " !!!!!!!!!" + imagesList[0] + " not found! gonna delete!"
+        );
+        deleteOldPhotos(image[0]);
+      } else {
+        console.log(image + " found! gonna add");
+        newImagesUrls.push(imagesUrls[count]);
+        newImageList.splice(val, 1);
+      }
+      count = count + 1;
+    });
+    // setLoading(true);
+    let newArray = newImageList.map((image) =>
       uploadFile(image, genRandFileName(), "test")
     );
-
     let fileDetails = await Promise.all(newArray);
-
+    console.log(fileDetails);
+    fileDetails.forEach((item) => {
+      newImagesUrls.push(item);
+    });
+    console.log("newImagesUrls", newImagesUrls);
     const newItem = {
-      userId,
-      groupId,
       contentText,
-      images: fileDetails,
-      likes,
-      comments,
+      images: newImagesUrls,
     };
     console.log(newItem);
-
-    fetch("http://localhost:3002/api/post", {
-      method: "POST",
+    fetch(`http://localhost:3002/api/post/posts/${postId}`, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(newItem),
     })
-      .then((res) => res.json())
+      .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        setMessage("successful");
-        navigate(-1);
+        navigate("/posts");
       })
-      .catch((err) => {
-        console.log(err);
-        setMessage("failed");
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+      .catch((error) => console.error(error));
   }
-
   return (
-    <div className="relative w-full pt-20">
-      <span className="ml-80 pt-20 mb-10 text-3xl font-bold">Create post</span>
+    <div>
+      <span className="ml-80 mt-20 mb-10 text-3xl font-bold">Edit Post</span>
       {/* image upload and inputs set */}
       <div className="w-full flex flex-wrap 2xl:flex-row  justify-center  ">
         {/* image upload */}
@@ -135,7 +172,7 @@ function CreatePost() {
             <span
               onClick={imgRemoveClicked}
               className={
-                "absolute top-2 right-2 bg-gray-50/75 rounded-sm cursor-pointer hover:bg-gray-50 " +
+                "absolute top-2 right-2 bg-gray-50/75 rounded-sm cursor-pointer hover:bg-gray-50" +
                 (selectedfileIndex === -1 ? "hidden" : "block")
               }
             >
@@ -146,7 +183,7 @@ function CreatePost() {
             </span>
             <span
               className={
-                "text-zinc-500 " +
+                "text-zinc-500 w-full text-center " +
                 (selectedfileIndex === -1 ? "block" : "hidden")
               }
             >
@@ -168,7 +205,7 @@ function CreatePost() {
                 <div
                   key={index}
                   onClick={() => imgClicked(index)}
-                  className="mb-5 w-[130px] hover:cursor-pointer  flex flex-row items-center overflow-hidden"
+                  className="mb-5 w-[130px] hover:cursor-pointer flex flex-row items-center overflow-hidden"
                 >
                   <img src={imgItem} alt={index + " items"} />{" "}
                 </div>
@@ -191,6 +228,7 @@ function CreatePost() {
             </div>
           </div>
         </div>
+        {/* input field set */}
         <div className="flex flex-col">
           <div className="flex flex-col">
             <div className="mb-6">
@@ -218,19 +256,18 @@ function CreatePost() {
               className="bg-red-600 text-white h-10 w-[200px] cursor-pointer hover:bg-red-700 mr-10 mt-10 mb-20 font-bold"
             />
             <div
-              onClick={() => {
-                navigate("/posts");
-              }}
+              //   onClick={() => {
+              //     navigate("/posts");
+              //   }}
               className="bg-black h-10 w-[200px] hover:cursor-pointer hover:bg-black/90 flex flex-row justify-center items-center mr-10 mt-10 mb-20 text-white font-bold text-center"
             >
               CANCLE
             </div>
           </div>
-          {message}
         </div>
       </div>
     </div>
   );
 }
 
-export default CreatePost;
+export default EditPost;

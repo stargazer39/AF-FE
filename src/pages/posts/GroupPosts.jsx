@@ -2,10 +2,9 @@ import React, { useEffect, useState } from "react";
 import Post from "./Post";
 import HeaderLikeThing from "./HeaderLikeThing";
 
-function Posts() {
+function GroupPosts() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [userId, setUserID] = useState("1");
   const [groupId, setGroupId] = useState("1");
 
   useEffect(() => {
@@ -33,4 +32,4 @@ function Posts() {
   );
 }
 
-export default Posts;
+export default GroupPosts;

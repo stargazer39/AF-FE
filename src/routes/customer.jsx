@@ -13,6 +13,9 @@ import ViewGroups from "../pages/groups/viewGroups/ViewGroups";
 import ViewMyGroups from "../pages/groups/viewGroups/ViewMyGroups";
 import UpdateGroup from "../pages/groups/updateGroup/UpdateGroup";
 import OneGroup from "../pages/groups/oneGroup/OneGroup";
+import EditPost from "../pages/posts/EditPost";
+import UserPosts from "../pages/posts/UserPosts";
+import GroupPosts from "../pages/posts/GroupPosts";
 
 export default function CustomerRouter() {
   return (
@@ -24,7 +27,10 @@ export default function CustomerRouter() {
 
       <Route path="/example/file-upload" element={<FileUpload />} />
       <Route path="/addPost" element={<CreatePost />} />
+      <Route path="/editPost" element={<EditPost />} />
       <Route path="/posts" element={<Posts />} />
+      <Route path="/user/posts" element={<UserPosts />} />
+      <Route path="/group/posts" element={<GroupPosts />} />
 
 
       {/*groups related routes*/}

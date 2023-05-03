@@ -2,18 +2,17 @@ import React, { useEffect, useState } from "react";
 import Post from "./Post";
 import HeaderLikeThing from "./HeaderLikeThing";
 
-function Posts() {
+function UserPosts() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [userId, setUserID] = useState("1");
-  const [groupId, setGroupId] = useState("1");
 
   useEffect(() => {
-    fetch(`http://localhost:3002/api/post/groups/${groupId}/posts`)
+    fetch(`http://localhost:3002/api/post/users/${userId}/posts`)
       .then((response) => response.json())
       .then((data) => setPosts(data))
       .catch((error) => console.error(error));
-  }, [groupId]);
+  }, [userId]);
 
   return (
     <div className="flex flex-row justify-center">
@@ -33,4 +32,4 @@ function Posts() {
   );
 }
 
-export default Posts;
+export default UserPosts;
