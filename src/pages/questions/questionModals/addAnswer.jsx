@@ -5,6 +5,7 @@ import { API_ENDPOINT } from '../../../config';
 function AddAnswerModal({ data }) {
   const userID = data.id 
   const answerPersonName = data.answerPersonName
+  const answerPersonID = data.answerPersonID
   const [answer, setAnswer] = useState("")
   const [group, setGroup] = useState("")
   const [error, setError] = useState("")
@@ -20,6 +21,7 @@ function AddAnswerModal({ data }) {
 
   async function add(){
     const array = {
+        answerPersonID : answerPersonID,  
         answerPersonName : answerPersonName,
         answer: answer,
     }

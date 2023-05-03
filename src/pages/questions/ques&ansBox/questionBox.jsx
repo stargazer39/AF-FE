@@ -26,8 +26,9 @@ export function QuestionBox({ data }) {
     setUpdate: data.setUpdate,
     update: data.update
   }
+
   return (
-    <div className="p-4  rounded-md">
+    <div className="p-4  rounded-md rounded bg-gradient-to-tr from-blue-500/70 to-cyan-300/100">
       <div className="flex items-center justify-between">
         <div className="flex-1">
           <h2 className="text-gray-500 text-xl font-bold">{data.name}</h2>
@@ -40,22 +41,21 @@ export function QuestionBox({ data }) {
         <p className="text-gray-700 text-xl font-bold">{data.question}</p>
       </div>
       <div className="flex justify-end mt-4">
-        {showButton && (
-          <div>
+        {currentUser?._id == data.userId && (
+        
           <button
-            className="px-4 mr-2 py-2 text-black-500 bg-green-300  rounded hover:text-white hover:bg-gray-400"
+            className="px-4 mr-2 py-2 text-black-500 bg-red-400  rounded hover:text-white hover:bg-red-500"
             onClick={()=> setDeleteModal(true)}
           >
             Remove
           </button>
+          )}
           <button
-            className="mr-2 px-4 py-2 text-white bg-green-500 rounded hover:bg-red-800"
+            className="mr-2 px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-800"
             onClick={()=> {setAddAnswerModal(true)}}
           >
             Answer This Question
           </button>
-          </div>
-        )}
       </div>
       {deleteModal && (<DeleteQuestionModal data={data2props} />)}
       {addAnswerModal && (<AddAnswerModal data={dataProps} />)}
