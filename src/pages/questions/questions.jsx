@@ -46,7 +46,7 @@ function Questions({groupData, profileID}) {
     // remove this to take it out from center 
     <>
       {questions.map(ques => (
-        <div className="flex flex-col w-4/6">
+        <div className="flex flex-col w-5/6">
 
         <div className="bg-amber-300/40">
             <QuestionBox data={QuestionData={name: ques.UserName, date: ques.createdAt, question: ques.Question, userId: userID, id: ques._id , setUpdate: setUpdate, update: update}} />
