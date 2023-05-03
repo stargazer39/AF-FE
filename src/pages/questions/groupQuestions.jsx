@@ -4,12 +4,14 @@ import { QuestionBox } from "./ques&ansBox/questionBox";
 import { AnswerBox } from "./ques&ansBox/answerBox";
 import { useEffect } from "react";
 import AddQuestionModal from "./questionModals/addQuestion";
+import GetCurrentUser from "../../hooks/getCurrentUser";
 
 
 function GroupQuestions({groupData, profileID}) {
+  const currentUser = GetCurrentUser()
   const [questions, setQuestions] = useState([])
   const [quesModal, setQuesModal] = useState(false)
-  const [userID , setUserID] = useState("")
+  const [userID , setUserID] = useState(profileID)
   const [update, setUpdate] = useState(1)
   const group = groupData || "noGrp"
   const updater = {
@@ -39,7 +41,7 @@ function GroupQuestions({groupData, profileID}) {
         <div className="flex flex-col w-5/6">
 
         <div className="bg-blue-300/40">
-            <QuestionBox data={QuestionData={name: ques.UserName, date: ques.createdAt, question: ques.Question, userId: userID, id: ques._id , setUpdate: setUpdate, update: update}} />
+            <QuestionBox data={QuestionData={count: ques.Answers.length, name: ques.UserName, date: ques.createdAt, question: ques.Question, userId: userID, Tid:ques.UserId , id: ques._id , setUpdate: setUpdate, update: update}} />
         </div>
         {ques.Answers.map(ans => (
           <div className="bg-gray-100 ">
