@@ -1,6 +1,8 @@
+import { useParams } from "react-router";
 import Posts from "./Posts";
 import Question from "./Questions";
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 function CustTwoTab(props) {
   const [ShowTab, setShowTab] = useState("post");
@@ -25,23 +27,20 @@ function CustTwoTab(props) {
     setQc("#007BED");
   };
 
-
   /////////// read post data
 
-  const [GroupList, setGroupList] = useState(null);
+  const [PostList, setPostList] = useState(null);
+
+  const { _id } = useParams();
 
   //get all groups
   useEffect(() => {
-    fetch("http://localhost:3002/api/group/getGroups")
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        console.log(data);
-        setGroupList(data);
-      });
+    const response = axios.get(
+      `http://localhost:3002/api/post/groups/${_id}/posts`
+    );
+    setPostList([response.data]);
+    console.log([response.data]);
   }, []);
-
 
   return (
     <div>
@@ -64,11 +63,7 @@ function CustTwoTab(props) {
         </div>
       </div>
       <div className=" p-0 w-full bg-orange-00">
-        {ShowTab == "post" ? (
-          <Posts groups={GroupList} />
-        ) : (
-          <Question />
-        )}
+        {ShowTab == "post" ? <Posts posts={PostList} /> : <Question />}
       </div>
     </div>
   );
