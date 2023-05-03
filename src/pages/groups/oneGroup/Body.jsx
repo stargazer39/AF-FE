@@ -2,6 +2,7 @@ import GroupPosts from "../../posts/GroupPosts";
 import Posts from "./Posts";
 import Question from "./Questions";
 import { useState, useEffect } from "react";
+import GroupQuestions from "../../questions/groupQuestions";
 
 function CustTwoTab(props) {
   const [ShowTab, setShowTab] = useState("post");
@@ -63,7 +64,8 @@ function CustTwoTab(props) {
         </div>
       </div>
       <div className=" p-0 w-full bg-orange-00 flex flex-col">
-        {ShowTab === "post" ? <GroupPosts /> : <Question />}
+        {ShowTab === "post" ? <GroupPosts /> : <GroupQuestions groupData={props.groupName}/>}
+        {/* {ShowTab === "post" ? " ": <GroupQuestions groupData={props.groupName}/>} */}
       </div>
     </div>
   );

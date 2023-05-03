@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { API_ENDPOINT } from '../../../config';
+import GetCurrentUser from '../../../hooks/getCurrentUser';
 
 function AddQuestionModal({ setAddQuestionModal, groupData }) {
-  const [userID, setUserID] = useState("")
-  const [userName, setUserName] = useState("Semora chan")
+  const user = GetCurrentUser();
   const [question, setQuestion] = useState("")
   const [group, setGroup] = useState(groupData)
   const [error, setError] = useState("")
+  const userID = user?._id
 
   function validation(){
     if (!question) {
@@ -22,7 +23,7 @@ function AddQuestionModal({ setAddQuestionModal, groupData }) {
     const data = {
       id: "",
       UserId: userID,
-      UserName: userName,
+      UserName: user?.username,
       Question: question,
       Group : group,
       Answers : []

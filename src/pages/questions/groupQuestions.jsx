@@ -3,40 +3,25 @@ import axios from "axios";
 import { QuestionBox } from "./ques&ansBox/questionBox";
 import { AnswerBox } from "./ques&ansBox/answerBox";
 import { useEffect } from "react";
+import AddQuestionModal from "./questionModals/addQuestion";
 
 
-function Questions({groupData, profileID}) {
+function GroupQuestions({groupData, profileID}) {
   const [questions, setQuestions] = useState([])
+  const [quesModal, setQuesModal] = useState(false)
   const [userID , setUserID] = useState("")
   const [update, setUpdate] = useState(1)
   const group = groupData || "noGrp"
 
-
   useEffect(() => {
-    if(!profileID){
       axios
       .get(`http://localhost:3002/api/question/getAllQuestions?group=${group}`)
       .then(response => {
         setQuestions(response.data)
-        console.log(response.data)
-        console.log(questions)
       })
       .catch(error => {
         console.log(error)
       })
-    } else {
-      axios
-      .get(`http://localhost:3002/api/question/getSingleUserQuestions?userID="${profileID}"`)
-      .then(response => {
-        setQuestions(response.data)
-        console.log(response.data)
-        console.log(questions)
-      })
-      .catch(error => {
-        console.log(error)
-      })
-    }
-    
     }, [update])
 
     var QuestionData
@@ -45,6 +30,7 @@ function Questions({groupData, profileID}) {
   return (
     // remove this to take it out from center 
     <>
+     <button onClick={()=> setQuesModal(true)} className="px-4 py-2 rounded-md mr-2 text-white bg-gray-400 hover:bg-gray-500 focus:outline-none focus:bg-gray-600">Add Question</button>
       {questions.map(ques => (
         <div className="flex flex-col w-5/6">
 
@@ -58,8 +44,9 @@ function Questions({groupData, profileID}) {
         ))}
         </div>
       ))}
+      {quesModal && (<AddQuestionModal groupData={group} setAddQuestionModal={setQuesModal}/>)}
     </>
   );
 }
 
-export default Questions;
+export default GroupQuestions;
