@@ -54,8 +54,8 @@ const PostPanel = () => {
               <div className="flex" onClick={()=>{setAddQuestionModal(!addQuestionModal)}}>
                 <HelpOutlineIcon />
                 <span>Ask</span>
-                {addQuestionModal && ( <AddQuestionModal setAddQuestionModal={setAddQuestionModal} />)}
               </div>
+              {addQuestionModal && ( <AddQuestionModal setAddQuestionModal={setAddQuestionModal} />)}
               <div className="h-6 w-0.5 bg-black"></div>
               <div className="flex">
                 <RateReviewTwoToneIcon />

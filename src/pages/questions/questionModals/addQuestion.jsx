@@ -3,20 +3,33 @@ import axios from 'axios';
 import { API_ENDPOINT } from '../../../config';
 
 function AddQuestionModal({ setAddQuestionModal }) {
-  const [userID, setUserID] = useState("werwerw")
-  const [question, setQuestion] = useState("werwerwer")
+  const [userID, setUserID] = useState("")
+  const [userName, setUserName] = useState("Semora chan")
+  const [question, setQuestion] = useState("")
   const [group, setGroup] = useState("")
+  const [error, setError] = useState("")
+
+  function validation(){
+    if (!question) {
+      setError("You need to ask something to continue. Duh!")
+    }else {
+      setError(null)
+      add()
+    }
+  }
 
   async function add(){
     const data = {
+      id: "",
       UserId: userID,
+      UserName: userName,
       Question: question,
       Group : group,
-      Answers : null
+      Answers : []
     }
     try {
       const response = await axios.post(
-        `${API_ENDPOINT}/api/question/addQuestion`,
+        `${API_ENDPOINT}/api/question/addQuestionAnswer`,
         data,
       )
       console.log(response.data)
@@ -33,10 +46,11 @@ function AddQuestionModal({ setAddQuestionModal }) {
         <h1 className=" text-center pt-4 text-2xl">Ask a new Question</h1>
         <div className="pt-4 pb-4 pl-8 pr-8">
           <textarea onChange={event => setQuestion(event.target.value)} type="text" className="w-full  h-64 rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="What do you wanna ask?" />
-        </div>
+          {error && (<h1 className='text-red-500'>{error}</h1>) }
+        </div> 
         <div className="flex justify-end px-4 pb-4">
           <button onClick={()=> setAddQuestionModal(false)} className="px-4 py-2 rounded-md mr-2 text-white bg-gray-400 hover:bg-gray-500 focus:outline-none focus:bg-gray-600">Go back</button>
-          <button onClick={add} className="px-4 py-2 rounded-md text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:bg-blue-700">Add Question</button>
+          <button onClick={validation} className="px-4 py-2 rounded-md text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:bg-blue-700">Add Question</button>
         </div>
       </div>
     </div>
