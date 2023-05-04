@@ -1,18 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import GroupCard from "./GroupCard";
-import SearchBar from "./SearchBar";
+import React, { useState } from "react";
 
-function ViewGroups() {
-  const [GroupList, setGroupList] = useState(null);
-
-  //search
+function SearchBar() {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
   const handleSearch = async () => {
     try {
-      const response = await fetch(GroupList);
+      const response = await fetch(`http://localhost:3002/api/group/getGroups/${searchTerm}`);
       const data = await response.json();
       setSearchResults(data.results);
     } catch (error) {
@@ -24,21 +18,8 @@ function ViewGroups() {
     setSearchTerm(event.target.value);
   };
 
-  //get all groups
-  useEffect(() => {
-    fetch("http://localhost:3002/api/group/getGroups")
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        console.log(data);
-        setGroupList(data);
-      });
-  }, []);
-
   return (
-    <div className="mt-32">
-      <div>
+    <div>
       <div class="flex justify-center">
         <div class="mb-3 xl:w-96">
           <div class="input-group relative flex items-stretch w-full mb-4">
@@ -82,14 +63,7 @@ function ViewGroups() {
         ))}
       </ul>
     </div>
-
-      <h4 class="mb-2 text-2xl font-medium leading-tight text-primary px-9 mt-5">
-        All Groups
-      </h4>
-      <hr />
-      {GroupList && <GroupCard groups={GroupList} />}
-    </div>
   );
 }
 
-export default ViewGroups;
+export default SearchBar;

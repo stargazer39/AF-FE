@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 function ButtonGroup() {
-  //pop up search on 'discover groups' button click
-  const [showSearchBar, setShowSearchBar] = useState(false);
 
   return (
     <div class="px-6 pt-24 pb-2 flex items-center">
@@ -28,12 +26,7 @@ function ButtonGroup() {
           </span>
         </Link>
       </div>
-      <button
-        test-id="button"
-        onCliick={() => {
-          setShowSearchBar(true);
-        }}
-      >
+      <Link to = "/user/viewgroups">
         <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -51,7 +44,7 @@ function ButtonGroup() {
           </svg>
           &nbsp; Discover Groups
         </span>
-      </button>
+      </Link>
     </div>
   );
 }

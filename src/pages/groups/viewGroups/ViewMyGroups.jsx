@@ -1,13 +1,10 @@
-/*
-    must only show the data of the current user
-
-*/
 
 import React, { useEffect, useState } from "react";
 import MyGroups from "./MyGroups";
 import ButtonGroup from "./ButtonGroup";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import FollowingGroups from "./FollowingGroups";
 
 function ViewMyGroups() {
   const [GroupList, setGroupList] = useState(null);
@@ -46,9 +43,15 @@ function ViewMyGroups() {
 
   return (
     <div>
-      
-
+      <ButtonGroup />
+      <h4 class="mb-2 text-2xl font-medium leading-tight text-primary px-9 mt-6"> My Groups</h4>
+      <hr/>
       {GroupList && <MyGroups groups={GroupList} handleDelete={handleDelete} />}
+      <h4 class="mb-2 text-2xl font-medium leading-tight text-primary px-9 mt-9 pt-4"> My Followings</h4>
+      <hr/>
+      {GroupList && <FollowingGroups groupsFollow={GroupList} />}
+
+      
     </div>
   );
 }

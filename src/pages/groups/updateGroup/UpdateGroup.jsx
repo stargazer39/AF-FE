@@ -51,13 +51,29 @@ function CreateGroup() {
     history("/user/viewmygroups");
   };
 
+  const backgroundImage =
+    "https://t4.ftcdn.net/jpg/03/98/45/23/360_F_398452372_dhh1fXfIZ7GYPJnQRwCl6IGY1sn53AUX.jpg";
+
   return (
     <div className="grid h-screen place-items-center">
-      <form className="w-full max-w-lg" onSubmit={updateGroup}>
+      <div
+        class="w-full object-cover"
+        style={{
+          backgroundImage: `url(${backgroundImage})`,
+          height: "22rem",
+          opacity: 0.8,
+        }}
+      >
+        <p class="font-bold text-4xl text-center opacity-100 text-black-700 pt-40">
+          Update a Group
+        </p>
+      </div>
+
+      <form className="w-full max-w-lg pt-10" onSubmit={updateGroup}>
         <div className="flex flex-wrap -mx-3 mb-6">
           <div className="w-full px-3">
             <label
-              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              className="block uppercase tracking-wide text-gray-700 text-sm font-bold mb-2"
               for="grid-password"
             >
               Group Name
@@ -76,7 +92,7 @@ function CreateGroup() {
         <div className="flex flex-wrap -mx-3 mb-6">
           <div className="w-full px-3">
             <label
-              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              className="block uppercase tracking-wide text-gray-700 text-sm font-bold mb-2"
               for="grid-state"
             >
               Category
@@ -109,7 +125,7 @@ function CreateGroup() {
 
         <label
           for="message"
-          className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+          className="block uppercase tracking-wide text-gray-700 text-sm font-bold mb-2"
         >
           Group Description
         </label>
@@ -123,16 +139,10 @@ function CreateGroup() {
           autoComplete="off"
           className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-5 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
         ></textarea>
-        <label
-          className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-          for="grid-state"
-        >
-          Add a group Icon
-        </label>
-        <input type="file" />
+        
         <div className="place-self-end text-right">
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold mb-10 py-2 px-4 border border-blue-700 rounded mt-4 w-36"
             type="submit"
           >
             Update
