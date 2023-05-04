@@ -8,13 +8,17 @@ import { getUser } from "../../services/User";
 import jwt_decode from "jwt-decode";
 import EditUserDialog from "./EditUserDialog";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { userActions } from "../../Store/user-slice";
 
 const UserProfile = () => {
   const userdata = jwt_decode(localStorage.getItem("token")).data;
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [postData, setPostData] = useState([]);
   const [user, setUser] = useState(userdata);
+  console.log("userdata", userdata);
   const [isOpen, setIsOpen] = useState(false);
   const [profilePic, setProfilePic] = useState(userdata.photo_url);
   const [coverPic, setCoverPic] = useState(userdata.cover_photo_url);
@@ -34,16 +38,11 @@ const UserProfile = () => {
       setCoverPic(res.data.data.cover_photo_url);
       setUser(res.data.data);
     });
-    // readPost()
-    //   .then((res) => {
-    //     setPostData(res);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     setPostData([]);
-    //   });
-    // navigate("/user");
   }, []);
+
+  useEffect(() => {
+    dispatch(userActions.replaceSelectedUser({ selectedUser: userdata }));
+  }, [dispatch, userdata]);
 
   console.log(profilePic);
   return (
@@ -100,12 +99,12 @@ const UserProfile = () => {
       </div>
       <br></br>
       <hr className="bg-black h-1" />
-      <div className=" flex px-28 mt-7">
-        <div className=" flex">
+      <div className=" flex px-28 mt-7 ">
+        <div className=" flex w-full ">
           <div className="">
             <ProgressPanel />
           </div>
-          <div className="flex-[2] ml-10">
+          <div className="flex-[2] ml-10  ">
             <PostPanel />
           </div>
         </div>

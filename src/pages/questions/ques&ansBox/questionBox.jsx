@@ -1,38 +1,70 @@
 import React from "react";
+import AddAnswerModal from "../questionModals/addAnswer";
+import { useState } from "react";
+import GetCurrentUser from "../../../hooks/getCurrentUser";
+import DeleteQuestionModal from "../questionModals/deleteQuesModal";
+import ModifyAnsModal from "../questionModals/modifyAnswer";
 
 export function QuestionBox({ data }) {
-  const showButton = data.showButton;
+  const currentUser = GetCurrentUser();
+  const showButton = true;
+  const [addAnswerModal, setAddAnswerModal] = useState(false)
+  const [deleteModal, setDeleteModal] = useState(false)
+
+  const dataProps ={
+    setAnswerModal: setAddAnswerModal,
+    answerPersonID: currentUser?._id,
+    answerPersonName: currentUser?.username,
+    id: data.id,
+    setUpdate: data.setUpdate,
+    update: data.update
+  }
+  const data2props = {
+    setRemoveAnswerModal: setDeleteModal,
+    userID : data.id,
+    setUpdate: data.setUpdate,
+    update: data.update
+  }
+  
   return (
-    <div className="p-4  rounded-md">
+    <div className="p-6  rounded-md rounded bg-gradient-to-tr from-blue-500/70 to-cyan-300/100">
       <div className="flex items-center justify-between">
         <div className="flex-1">
-          <h2 className="text-xl font-bold">{data.name}</h2>
+          <h2 className="text-gray-500 text-xl font-bold">By: {data.name}</h2>
         </div>
         <div>
           <p className="text-gray-500">{data.date}</p>
         </div>
+        {data.Tid}
       </div>
       <div className="mt-4">
-        <p className="text-gray-700">{data.description}</p>
+        <p className="text-gray-700 text-xl font-bold">{data.question}</p>
       </div>
-      <div className="flex justify-end mt-4">
-        {showButton && (
-          <div>
-          <button
-            className="px-4 mr-2 py-2 text-black-500 bg-gray-300  rounded hover:text-white hover:bg-gray-400"
-            onClick={data.button2Click}
-          >
-            Remove
-          </button>
-          <button
-            className="mr-2 px-4 py-2 text-white bg-red-500 rounded hover:bg-red-800"
-            onClick={data.button1Click}
-          >
-            Modify
-          </button>
-          </div>
+      <div className="flex justify-between mt-10">
+       <div className="text-gray-900 text-xl">
+         Total Answers : {data.count}
+       </div>
+       <div>
+       {data.userId == data.Tid && (
+        
+        <button
+          className="px-4 mr-2 py-2 text-black-500 bg-red-400  rounded hover:text-white hover:bg-red-500"
+          onClick={()=> setDeleteModal(true)}
+        >
+          Remove
+        </button>
         )}
+        <button
+          className="mr-2 px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-800"
+          onClick={()=> {setAddAnswerModal(true)}}
+        >
+          Answer This Question
+        </button>
+       </div>
+        
       </div>
+      {deleteModal && (<DeleteQuestionModal data={data2props} />)}
+      {addAnswerModal && (<AddAnswerModal data={dataProps} />)}
     </div>
   );
 }

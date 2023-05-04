@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import TestPage from "../pages/Test/test";
 
 // import CreateGroup from "../pages/groups/CreateGroup";
-import Questions from "../pages/questions/questions";
+import Questions from "../pages/questions/userQuestions";
 
 import { FileUpload } from "../pages/examples/file-upload";
 import CreatePost from "../pages/posts/CreatePost";
