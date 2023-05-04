@@ -1,6 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 
 function SearchBar() {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+
+  const handleSearch = async () => {
+    try {
+      const response = await fetch(`http://localhost:3002/api/group/getGroups/${searchTerm}`);
+      const data = await response.json();
+      setSearchResults(data.results);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleInputChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
   return (
     <div>
       <div class="flex justify-center">
@@ -8,15 +25,18 @@ function SearchBar() {
           <div class="input-group relative flex items-stretch w-full mb-4">
             <input
               type="search"
-              class="form-control relative flex-auto min-w-0 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+              class="form-control relative flex-auto min-w-0 block w-full px-3 py-1 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
               placeholder="Search"
               aria-label="Search"
               aria-describedby="button-addon2"
+              value={searchTerm}
+              onChange={handleInputChange}
             />
             <button
-              class="btn px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out flex items-center"
+              class="btn px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out flex items-center"
               type="button"
               id="button-addon2"
+              onClick={handleSearch}
             >
               <svg
                 aria-hidden="true"
@@ -37,6 +57,11 @@ function SearchBar() {
           </div>
         </div>
       </div>
+      <ul>
+        {searchResults.map((result) => (
+          <li key={result.id}>{result.title}</li>
+        ))}
+      </ul>
     </div>
   );
 }

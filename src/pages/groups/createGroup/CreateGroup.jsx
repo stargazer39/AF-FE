@@ -135,6 +135,7 @@ function CreateGroup() {
                 <option>Higher Education</option>
                 <option>Exam Guidance</option>
                 <option>Career Guidance</option>
+                <option>Other</option>
               </select>
               <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                 <svg
@@ -173,10 +174,10 @@ function CreateGroup() {
         <input type="file" ref={file_input_ref} />
         <div className="place-self-end text-right">
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded mt-4 w-36"
+            className="bg-blue-500 text-white font-bold mb-10 py-2 px-4 border border-blue-700 rounded mt-4 w-36"
             type="submit"
           >
-            Submit
+            Create Group
           </button>
         </div>
       </form>

@@ -1,12 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import GetCurrentUser from "../../../hooks/getCurrentUser";
 import axios from "axios";
 
 const Header = ({ group }) => {
-  const [Following, setFollowing] = useState(false);
-
   const { _id } = useParams();
+
+  const [Following, setFollowing] = useState(
+    localStorage.getItem(`following_${_id}`) === "true"
+  );
+
+  // const [Following, setFollowing] = useState(
+  //   JSON.parse(localStorage.getItem(`following_${_id}`)) || false
+  // );
 
   //get current user
   const currentUser = GetCurrentUser();
@@ -18,10 +24,19 @@ const Header = ({ group }) => {
       followersUserId: currentUser._id,
     };
 
+    console.log("userid", data);
     //update the item
     axios.patch(`http://localhost:3002/api/group/addFollows/${_id}`, data);
     setFollowing(true);
+    localStorage.setItem(`following_${_id}`, true);
+    console.log(_id);
   };
+
+  useEffect(() => {
+    //update state when the page loads
+    setFollowing(localStorage.getItem(`following_${_id}`) === "true");
+    //localStorage.setItem(`following_${_id}`, JSON.stringify(Following));
+  }, [_id]);
 
   return (
     <>
@@ -39,7 +54,8 @@ const Header = ({ group }) => {
               <div class="text-center">
                 <h1 class="text-white text-3xl font-bold uppercase md:text-3xl items-center pt-36">
                   {value.groupName}
-                </h1><br/>
+                </h1>
+                <br />
                 <h2 class="mt-4 px-4 pt-2 text-white text-1xl  font-medium rounded focus:outline-none focus:bg-blue-500">
                   {value.description}
                 </h2>

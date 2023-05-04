@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 function ButtonGroup() {
-  //pop up search on 'discover groups' button click
-  const [showSearchBar, setShowSearchBar] = useState(false);
 
   return (
     <div class="px-6 pt-24 pb-2 flex items-center">

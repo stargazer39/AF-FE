@@ -139,16 +139,10 @@ function CreateGroup() {
           autoComplete="off"
           className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-5 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
         ></textarea>
-        <label
-          className="block uppercase tracking-wide text-gray-700 text-sm font-bold mb-2"
-          for="grid-state"
-        >
-          Add a group Icon
-        </label>
-        <input type="file" />
+        
         <div className="place-self-end text-right">
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded mt-4 w-36"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold mb-10 py-2 px-4 border border-blue-700 rounded mt-4 w-36"
             type="submit"
           >
             Update
