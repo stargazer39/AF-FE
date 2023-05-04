@@ -11,6 +11,10 @@ export function QuestionBox({ data }) {
   const [addAnswerModal, setAddAnswerModal] = useState(false)
   const [deleteModal, setDeleteModal] = useState(false)
 
+  const date = new Date(data.date);
+  const options = { year: "numeric", month: "long", day: "numeric" };
+  const formattedDate = date.toLocaleDateString("en-US", options);
+
   const dataProps ={
     setAnswerModal: setAddAnswerModal,
     answerPersonID: currentUser?._id,
@@ -33,9 +37,8 @@ export function QuestionBox({ data }) {
           <h2 className="text-gray-500 text-xl font-bold">By: {data.name}</h2>
         </div>
         <div>
-          <p className="text-gray-500">{data.date}</p>
+          <p className="text-gray-500">{formattedDate}</p>
         </div>
-        {data.Tid}
       </div>
       <div className="mt-4">
         <p className="text-gray-700 text-xl font-bold">{data.question}</p>
@@ -44,7 +47,7 @@ export function QuestionBox({ data }) {
        <div className="text-gray-900 text-xl">
          Total Answers : {data.count}
        </div>
-       <div>
+       <div>        
        {data.userId == data.Tid && (
         
         <button

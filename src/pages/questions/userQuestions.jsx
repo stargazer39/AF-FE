@@ -12,7 +12,7 @@ function Questions({groupData, profileID}) {
   const [userID , setUserID] = useState(profileID)
   console.log("THios is from m " + userID)
   const [update, setUpdate] = useState(1)
-  const group = groupData || "noGrp"
+  const group = "noGrp"
   const updater = {
     update : update,
     setUpdate : setUpdate
@@ -40,7 +40,7 @@ function Questions({groupData, profileID}) {
         <div className="flex flex-col w-6/6 mb-16">
 
         <div className="">
-            <QuestionBox data={QuestionData={count: ques.Answers.length ,name: ques.UserName, date: ques.createdAt, question: ques.Question, userId: userID, id: ques._id , setUpdate: setUpdate, update: update}} />
+            <QuestionBox data={QuestionData={count: ques.Answers.length ,name: ques.UserName, date: ques.createdAt, question: ques.Question, userId: userID, id: ques._id , Tid:ques.UserId, setUpdate: setUpdate, update: update}} />
         </div>
         {ques.Answers.map(ans => (
           <div className="">

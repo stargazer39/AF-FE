@@ -4,7 +4,7 @@ import { API_ENDPOINT } from '../../../config';
 
 function ModifyAnsModal({ data }) {
   const userID = data.id 
-  const answerPersonName = data.answerPersonName
+  const answerPersonName = data.answerID
   const [answer, setAnswer] = useState(data.answer)
   const [group, setGroup] = useState("")
   const [error, setError] = useState("")
@@ -21,6 +21,7 @@ function ModifyAnsModal({ data }) {
   async function add(){
     const array = {
         _id: data.answerID,
+        answerPersonID : data.answerPID,
         answerPersonName : data.name,
         answer: answer,
     }
