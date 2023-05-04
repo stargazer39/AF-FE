@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import TestPage from "../pages/Test/test";
+import Feed from "../pages/home/feed";
 
 // import CreateGroup from "../pages/groups/CreateGroup";
 import Questions from "../pages/questions/userQuestions";
@@ -20,8 +20,8 @@ import GroupPosts from "../pages/posts/GroupPosts";
 export default function CustomerRouter() {
   return (
     <Routes>
-      <Route path="/test" element={<TestPage />} />
-      <Route path="/" element={<TestPage />} />
+      {/* <Route path="/test" element={<Feed />} /> */}
+      <Route path="/" element={<Feed />} />
 
       <Route path="/questions" element={<Questions />} />
 

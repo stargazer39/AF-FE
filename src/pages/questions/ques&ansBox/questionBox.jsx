@@ -4,6 +4,8 @@ import { useState } from "react";
 import GetCurrentUser from "../../../hooks/getCurrentUser";
 import DeleteQuestionModal from "../questionModals/deleteQuesModal";
 import ModifyAnsModal from "../questionModals/modifyAnswer";
+import bg from "../../../images/pp.png"
+
 
 export function QuestionBox({ data }) {
   const currentUser = GetCurrentUser();
@@ -29,9 +31,9 @@ export function QuestionBox({ data }) {
     setUpdate: data.setUpdate,
     update: data.update
   }
-  
+
   return (
-    <div className="p-6  rounded-md rounded bg-gradient-to-tr from-blue-500/70 to-cyan-300/100">
+    <div className="p-6  rounded-md rounded " style={{ backgroundImage: `url(${bg})` , backgroundColor: "rgba(0, 195, 255, 0.562)" }}>
       <div className="flex items-center justify-between">
         <div className="flex-1">
           <h2 className="text-gray-500 text-xl font-bold">By: {data.name}</h2>

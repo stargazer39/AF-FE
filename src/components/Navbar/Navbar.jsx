@@ -97,7 +97,7 @@ const ResponsiveAppBar = () => {
     <AppBar
       position="sticky"
       sx={{
-        backgroundColor: "#1d2228",
+        backgroundColor: "#1976d2",
       }}
     >
       <Container maxWidth="xl">
@@ -150,7 +150,7 @@ const ResponsiveAppBar = () => {
                 },
               ]}
             >
-              <SearchAppBar />
+              {/* <SearchAppBar /> */}
             </Box>
             {/* menu for big screens*/}
             <Box

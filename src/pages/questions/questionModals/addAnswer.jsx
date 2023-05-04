@@ -41,7 +41,7 @@ function AddAnswerModal({ data }) {
     }
     setTimeout(() => {
         data.setUpdate(data.update + 1);
-      }, 500);
+      }, 1000);
     data.setAnswerModal(false)
   }
 
