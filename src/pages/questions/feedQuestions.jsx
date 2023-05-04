@@ -7,13 +7,14 @@ import AddQuestionModal from "./questionModals/addQuestion";
 import GetCurrentUser from "../../hooks/getCurrentUser";
 import gg from "../../images/noData.png"
 
-function GroupQuestions({groupData, profileID}) {
+function FeedQuestions({groupData, profileID}) {
   const currentUser = GetCurrentUser()
   const [questions, setQuestions] = useState([])
   const [quesModal, setQuesModal] = useState(false)
-  const [userID , setUserID] = useState(profileID)
+  const userID = profileID 
   const [update, setUpdate] = useState(1)
   const group = groupData || "noGrp"
+  const send = ""
   const updater = {
     update : update,
     setUpdate : setUpdate
@@ -22,8 +23,7 @@ function GroupQuestions({groupData, profileID}) {
 
   useEffect(() => {
       axios
-      // .get(`http://localhost:3002/api/question/getAllQuestions?group=${group}`)
-      .get(`http://localhost:3002/api/question/searchQuestion?question=${searchTerm}&group=${group}`)
+      .get(`http://localhost:3002/api/question/getAllQuestions?search=${searchTerm}`)
       .then(response => {
         setQuestions(response.data)
       })
@@ -83,9 +83,9 @@ function GroupQuestions({groupData, profileID}) {
           </div>
         ))}
       </div>
-      {quesModal && (<AddQuestionModal groupData={group} setAddQuestionModal={setQuesModal} updater={updater}/>)}
+      {quesModal && (<AddQuestionModal groupData="noGrp" setAddQuestionModal={setQuesModal} updater={updater}/>)}
     </>
   );
 }
 
-export default GroupQuestions;
+export default FeedQuestions;
