@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import GroupCard from "./GroupCard";
 import SearchBar from "./SearchBar";
+import Navbar from "../../../components/Navbar/Navbar";
 
 function ViewGroups() {
   const [GroupList, setGroupList] = useState(null);
@@ -37,7 +38,10 @@ function ViewGroups() {
   }, []);
 
   return (
-    <div className="mt-32">
+    <>
+    <Navbar />
+    <div className="mt-20">
+   
       <div>
       <div class="flex justify-center">
         <div class="mb-3 xl:w-96">
@@ -89,6 +93,7 @@ function ViewGroups() {
       <hr />
       {GroupList && <GroupCard groups={GroupList} />}
     </div>
+    </>
   );
 }
 

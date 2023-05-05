@@ -38,7 +38,7 @@ function Questions({groupData, profileID}) {
     // remove this to take it out from center 
     <>
 
-     <button onClick={()=> setQuesModal(true)} className="mb-4 px-4 py-2 rounded-md mr-2 text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:bg-blue-700">Add Question</button>
+     <button onClick={()=> setQuesModal(true)} className="mb-4 px-4 py-2 rounded-md mr-2 text-white bg-blue-500 hover:bg-blue-600 focus:outline-none hover:scale-110 ease-in duration-100 focus:bg-blue-700">Add Question</button>
      {questions.length < 1 && (
           <div className="flex mt-24 mb-48 flex-col items-center w-full" >
            <h1 className="text-2xl text-blue-600">Be the first to add a question</h1> 

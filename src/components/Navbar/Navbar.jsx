@@ -313,7 +313,7 @@ const ResponsiveAppBar = () => {
             {/* user for small screens */}
             <Box sx={[{ display: { xs: "flex", md: "none" } }]}>
               <Tooltip title="Open settings">
-                <IconButton
+                <IconButton 
                   onClick={handleOpenUserMenu}
                   sx={{ p: 0, marginRight: "20px" }}
                 >

@@ -57,7 +57,7 @@ function FeedQuestions({groupData, profileID}) {
               Search
             </button>
           </div>
-          <button onClick={()=> setQuesModal(true)} className="mb-8 w-48 px-4 py-2 rounded-md mr-2 text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:bg-blue-700">Add Question</button>
+          <button onClick={()=> setQuesModal(true)} className="mb-8 w-48 px-4 py-2 rounded-md mr-2 text-white bg-blue-500 hover:bg-blue-600 hover:scale-110 ease-in duration-100 focus:outline-none focus:bg-blue-700">Add Question</button>
       
       
       </div>
