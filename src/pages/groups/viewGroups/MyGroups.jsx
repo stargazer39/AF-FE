@@ -5,15 +5,15 @@ const MyGroups = ({ groups, handleDelete }) => {
   const currentUser = GetCurrentUser();
 
   return (
-    <div class="grid grid-cols-4 gap-4 py-4 px-8">
+    <div class="grid grid-cols-4 gap-6 py-4 px-8 ">
       {groups.map((group) => (
         <>
           {currentUser && currentUser._id === group.adminId ? (
-            <div class="max-w-sm rounded overflow-hidden shadow-lg">
+            <div class="max-w-sm rounded overflow-hidden shadow-lg hover:scale-110 ease-in duration-200">
               <Link to={`/singleGroup/${group._id}`}>
             <img class="w-full h-60" src={group.groupIcon[1]} alt="Group icon" />
           </Link>
-              <div class="px-6 py-4">
+              <div class="px-6 py-4 ">
                 <div className="flex justify-center mb-5">
                   <button
                     type="button"
@@ -59,8 +59,8 @@ const MyGroups = ({ groups, handleDelete }) => {
                     </button>
                   </Link>
                 </div>
-                <div class="font-bold text-xl mb-2">{group.groupName}</div>
-                <p class="text-gray-700 text-base">{group.description}</p>
+                <div className="font-bold text-xl mb-2">{group.groupName}</div>
+                <p className="text-gray-700 text-base">{group.description}</p>
               </div>
             </div>
           ) : null}

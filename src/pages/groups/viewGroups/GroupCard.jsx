@@ -12,9 +12,9 @@ const GroupCard = ({ groups }) => {
     navigate(`/singleGroup/${group._id}`);
   }
   return (
-    <div class="grid grid-cols-4 gap-4 py-4 px-8 ">
+    <div class="grid grid-cols-4 gap-6 py-4 px-8 ">
       {groups.map((group) => (
-        <div class="max-w-sm rounded overflow-hidden shadow-lg">
+        <div class="max-w-sm rounded overflow-hidden shadow-lg mb-4 hover:scale-110 ease-in duration-200">
           <div onClick={() => groupClicked(group)}>
             <img
               class="w-full h-60"

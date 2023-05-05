@@ -29,7 +29,7 @@ export function AnswerBox({ data }) {
   }
   
   return (
-    <div className="p-4 flex flex-col rounded-md bg-gradient-to-tr from-gray-200/90 to-stone-800/20  mt-2">
+    <div className="p-4 flex flex-col rounded-md bg-gradient-to-tr from-gray-200/100 to-stone-800/20  mt-2">
       <div className="flex">
         <div className="w-2/12 pt-1/2">
             <h4 className="text-xl font-bold">{data.name}</h4>

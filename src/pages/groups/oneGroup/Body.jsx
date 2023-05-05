@@ -13,24 +13,24 @@ function CustTwoTab(props) {
   const id = user?._id;
   const [ShowTab, setShowTab] = useState("post");
   const [postButtonColor, setPostButtonColor] = useState("#007BED");
-  const [quesButtonColor, setQuesButtonColor] = useState("#b8b8b8");
-  const [rc, setRc] = useState("#007BED");
-  const [qc, setQc] = useState("#c9c9c9");
+  const [quesButtonColor, setQuesButtonColor] = useState("#2b2b2b");
+  const [rc, setRc] = useState("#007aed55");
+  const [qc, setQc] = useState("#f1f1f1");
 
   const postButton = () => {
     setShowTab("post");
     setPostButtonColor("#007BED");
-    setQuesButtonColor("#b8b8b8");
-    setRc("#007BED");
-    setQc("#c9c9c9");
+    setQuesButtonColor("#2b2b2b");
+    setRc("#007aed55");
+    setQc("#f1f1f1");
   };
 
   const quesButton = () => {
     setShowTab("ques");
-    setPostButtonColor("#b8b8b8");
+    setPostButtonColor("#2b2b2b");
     setQuesButtonColor("#007BED");
-    setRc("#c9c9c9");
-    setQc("#007BED");
+    setRc("#f1f1f1");
+    setQc("#007aed55");
   };
 
   /////////// read post data
@@ -50,18 +50,18 @@ function CustTwoTab(props) {
 
   return (
     <div>
-      <div className="pt-5 w-80 items-center pl-4">
-        <div className="flex grid-flow-row w-80  bg-gray-00 p-4">
+      <div className="pt-2 w-full items-center flex items-center justify-center ">
+        <div className="flex grid-flow-row w-4/6   pb-10 ">
           <div
-            className="w-full text-1xl font-bold border-solid border-b-2"
-            style={{ color: postButtonColor, borderColor: rc }}
+            className="w-full text-xl flex items-center justify-center font-bold bg-red-400 p-4 border-solid border-b-4"
+            style={{ color: postButtonColor, borderColor: rc , backgroundColor : rc}}
             onClick={postButton}
           >
             Posts
           </div>
           <div
-            className="w-full text-1xl font-bold border-solid border-b-2 pl-2"
-            style={{ color: quesButtonColor, borderColor: qc }}
+            className="w-full text-xl font-bold flex items-center justify-center p-4 border-solid border-b-4 pl-2"
+            style={{ color: quesButtonColor, borderColor: qc,  backgroundColor : qc}}
             onClick={quesButton}
           >
             Questions
