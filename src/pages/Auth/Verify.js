@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { verify } from '../../services/User'
+import auth from "../../images/auth.png"
 
 const Login = () => {
   const navigate = useNavigate()
@@ -18,8 +19,8 @@ const Login = () => {
   }
   return (
     <div className="flex justify-center items-center ">
-      <img src="Verify.svg" alt="Verify" className="flex-1 h-[500px] w-[500px]" />
-      <div className="flex flex-col flex-1 bg-black justify-center h-screen">
+      <img src={auth} alt="Verify" className="flex-1  w-[500px]" />
+      <div className="flex flex-col flex-1 bg-blue-900 justify-center h-screen">
         <form onSubmit={handleForm} className="flex flex-col items-center">
           <span className="font-medium text-3xl text-white ">Enter Verification Code</span>
           <input
@@ -28,7 +29,7 @@ const Login = () => {
             type="number"
             placeholder="Verification Code"
           />
-          <button className="bg-[#ffbb00] font-bold mt-10 w-1/4 h-10 rounded-[5px] flex justify-center items-center text-base font-normal">
+          <button className="bg-blue-500 hover:bg-blue-600 active:bg-blue-700 font-bold mt-10 w-1/4 h-10 rounded-[5px] flex justify-center items-center text-base font-normal">
             Continue
           </button>
         </form>
