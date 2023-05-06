@@ -41,7 +41,7 @@ function PostSearch({ searchPosts }) {
         onClick={() => {
           searchPosts(searchValue);
         }}
-        className="flex flex-row justify-center items-center rounded-full w-13 p-4 bg-black h-13 hover:cursor-pointer hover:bg-slate-800"
+        className="flex flex-row justify-center items-center rounded-full w-13 p-4 bg-blue-600 h-13 hover:cursor-pointer hover:bg-blue-800"
       >
         <FiSearch color="white" className="w-6 h-6" />
       </span>

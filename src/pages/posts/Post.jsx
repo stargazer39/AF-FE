@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Slide } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
 import "./post.css";
@@ -15,8 +15,10 @@ import { Lightbox } from "react-modal-image";
 import { useNavigate } from "react-router-dom";
 import { orderActions } from "../../Store/post-slice";
 import { useSelector } from "react-redux";
+import DeletePostModal from "./DeletePostModal";
+import { useIsOverflow } from "../../hook/useIsOverflow";
 
-function Post({ post }) {
+function Post({ post, setDeleteCount }) {
   const navigate = useNavigate();
   const [innerPost, setInnerPost] = useState(post);
   const [seeMore, setSeeMore] = useState(false);
@@ -25,11 +27,13 @@ function Post({ post }) {
   const [changed, setChanged] = useState(false);
   const [selectedImage, setSelectedImage] = useState(undefined);
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const postId = post._id; // Replace with the ID of the post you want to like
   const user = useSelector((state) => state.user).currentUser;
   const userId = user?._id;
   const isCurrentUser = post.userId === user?._id;
-  console.log("post in post", post);
+  const ref = useRef();
+  const isOverflow = useIsOverflow(ref);
 
   useEffect(() => {
     // update post
@@ -97,7 +101,6 @@ function Post({ post }) {
     navigate("/editPost");
   }
 
-  console.log(post?.photoUrl);
   const imageUrl =
     post?.photoUrl || "https://img.freepik.com/free-icon/user_318-159711.jpg";
   return (
@@ -121,44 +124,60 @@ function Post({ post }) {
               {isOptionsOpen && (
                 <div className="w-[300px] h-[130px] bg-white shadow-2xl absolute right-5 top-5 flex flex-col">
                   <span
-                    onClick={() => handleEditClick()}
+                    onClick={() => {
+                      handleEditClick();
+                      setIsOptionsOpen(false);
+                    }}
                     className="p-5 border-b-2 border-gray-500 border-opacity-30 hover:bg-slate-300"
                   >
                     Edit
                   </span>
-                  <span className="p-5 hover:bg-slate-300">Delete</span>
+                  <span
+                    onClick={() => {
+                      setShowDeleteModal(true);
+                      setIsOptionsOpen(false);
+                    }}
+                    className="p-5 hover:bg-slate-300"
+                  >
+                    Delete
+                  </span>
                 </div>
               )}
             </div>
           )}
         </div>
-        <div className={`w-full text-lg ${seeMore ? "" : "line-clamp-2"}`}>
+        <div
+          className={`w-full text-lg ${seeMore ? "" : "line-clamp-2"}`}
+          ref={ref}
+        >
           {post.contentText}{" "}
         </div>
         <div
           className="cursor-pointer text-lg font-bold"
           onClick={() => setSeeMore((seeMore) => !seeMore)}
         >
-          {seeMore ? "see less..." : "See more..."}
+          {seeMore ? "see less..." : isOverflow ? "See more..." : undefined}
         </div>
       </div>
-      <div className="border-2 border-gray-300 border-b-0">
-        <Slide
-          transitionDuration={200}
-          autoplay={post?.images?.length > 1}
-          arrows={post?.images?.length > 1}
-        >
-          {post.images.map((image) => (
-            <div
-              key={image[0]}
-              onClick={() => handleImageClick(image)}
-              className="each-slide-effect"
-            >
-              <div style={{ backgroundImage: `url(${image[1]})` }}></div>
-            </div>
-          ))}
-        </Slide>
-      </div>
+      {post?.images?.length > 0 && (
+        <div className="border-2 border-gray-300 border-b-0">
+          <Slide
+            transitionDuration={200}
+            autoplay={post?.images?.length > 1}
+            arrows={post?.images?.length > 1}
+          >
+            {post.images.map((image) => (
+              <div
+                key={image[0]}
+                onClick={() => handleImageClick(image)}
+                className="each-slide-effect"
+              >
+                <div style={{ backgroundImage: `url(${image[1]})` }}></div>
+              </div>
+            ))}
+          </Slide>
+        </div>
+      )}
       <div className="flex flex-row p-3 border-2 border-gray-300">
         <div
           className="flex flex-row items-center text-3xl"
@@ -168,7 +187,7 @@ function Post({ post }) {
             {Object.keys(innerPost?.like).length ?? 0}
           </span>
           {userId in innerPost.like ? (
-            <AiFillLike size={24} />
+            <AiFillLike className="text-blue-600" size={24} />
           ) : (
             <AiOutlineLike size={24} />
           )}
@@ -181,7 +200,7 @@ function Post({ post }) {
             {Object.keys(innerPost?.disLike).length ?? 0}
           </span>
           {userId in innerPost.disLike ? (
-            <AiFillDislike size={24} />
+            <AiFillDislike className="text-blue-600" size={24} />
           ) : (
             <AiOutlineDislike size={24} />
           )}
@@ -193,6 +212,13 @@ function Post({ post }) {
           medium={selectedImage[1]}
           alt={selectedImage[0]}
           onClose={closePreview}
+        />
+      )}
+      {showDeleteModal && (
+        <DeletePostModal
+          setShowDeleteModal={setShowDeleteModal}
+          postId={postId}
+          setDeleteCount={setDeleteCount}
         />
       )}
     </div>
