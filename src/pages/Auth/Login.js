@@ -1,29 +1,31 @@
+
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { login } from '../../services/User'
 import cover from "../../images/log.png"
 
 const Login = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const handleForm = async e => {
-    e.preventDefault()
+  const handleForm = async (e) => {
+    e.preventDefault();
     await login({
       email: e.target.email.value,
       password: e.target.password.value,
     })
+
       .then(res => {
         localStorage.setItem('token', res.data.data.access_token)
         navigate('/')
         navigate(0)
       })
       .catch((err) => {
-        alert(err.response.statusText)
-      })
-  }
+        alert(err.response.statusText);
+      });
+  };
   const onRegisterClick = () => {
-    navigate('/register')
-  }
+    navigate("/register");
+  };
   return (
     <div className="flex justify-center items-center ">
       {/* <img src="Login.svg" alt="Login" className="flex-1 h-[500px] w-[500px]" /> */}
@@ -50,6 +52,7 @@ const Login = () => {
             type="password"
             placeholder="Password"
           />
+
           <div className=' w-full flex  justify-end mt-4'>
             <button className="border rounded-[5px] mr-4 border-gray-600  hover:border-blue-600 mt-10 hover:bg-blue-600 active:bg-blue-700 text-black w-24 h-10 text-base font-normal" onClick={onRegisterClick}>
               Register
@@ -61,10 +64,11 @@ const Login = () => {
           <div className=' w-full flex items-justify  justify-center'>
          
           </div>
+
         </form>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
