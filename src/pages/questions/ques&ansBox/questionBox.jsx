@@ -4,12 +4,18 @@ import { useState } from "react";
 import GetCurrentUser from "../../../hooks/getCurrentUser";
 import DeleteQuestionModal from "../questionModals/deleteQuesModal";
 import ModifyAnsModal from "../questionModals/modifyAnswer";
+import bg from "../../../images/pp.png"
+
 
 export function QuestionBox({ data }) {
   const currentUser = GetCurrentUser();
   const showButton = true;
   const [addAnswerModal, setAddAnswerModal] = useState(false)
   const [deleteModal, setDeleteModal] = useState(false)
+
+  const date = new Date(data.date);
+  const options = { year: "numeric", month: "long", day: "numeric" };
+  const formattedDate = date.toLocaleDateString("en-US", options);
 
   const dataProps ={
     setAnswerModal: setAddAnswerModal,
@@ -25,17 +31,16 @@ export function QuestionBox({ data }) {
     setUpdate: data.setUpdate,
     update: data.update
   }
-  
+
   return (
-    <div className="p-6  rounded-md rounded bg-gradient-to-tr from-blue-500/70 to-cyan-300/100">
+    <div className="p-6  rounded-md rounded " style={{ backgroundImage: `url(${bg})` , backgroundColor: "rgba(0, 195, 255, 0.562)" }}>
       <div className="flex items-center justify-between">
         <div className="flex-1">
           <h2 className="text-gray-500 text-xl font-bold">By: {data.name}</h2>
         </div>
         <div>
-          <p className="text-gray-500">{data.date}</p>
+          <p className="text-gray-500">{formattedDate}</p>
         </div>
-        {data.Tid}
       </div>
       <div className="mt-4">
         <p className="text-gray-700 text-xl font-bold">{data.question}</p>
@@ -44,7 +49,7 @@ export function QuestionBox({ data }) {
        <div className="text-gray-900 text-xl">
          Total Answers : {data.count}
        </div>
-       <div>
+       <div>        
        {data.userId == data.Tid && (
         
         <button

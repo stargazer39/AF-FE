@@ -45,12 +45,12 @@ const FollowingGroups = ({ groupsFollow }) => {
   }
 
   return (
-    <div class="grid grid-cols-4 gap-4 py-4 px-8 ">
+    <div class="grid grid-cols-4 gap-6 py-4 px-8 ">
       {groupsFollow &&
         groupsFollow.map((group) => (
           <>
             {group.followersUserId.includes(currentUser && currentUser._id) ? (
-              <div class="max-w-sm flex flex-col justify-between rounded overflow-hidden shadow-lg">
+              <div class="max-w-sm flex flex-col justify-between rounded overflow-hidden shadow-lg hover:scale-110 ease-in duration-200 mb-4">
                 <div onClick={() => groupClicked(group)}>
                   <img
                     class="w-full h-60"

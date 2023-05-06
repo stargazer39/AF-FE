@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "./../../../components/Navbar/Navbar";
+import Footer from "../../../components/Navbar/Footer";
 
 import { useParams } from "react-router-dom";
 import Header from "./Header";
@@ -28,6 +29,7 @@ function OneGroup() {
       {Group && <Header group={Group} />}
       {/* {console.log(Group[0]?.groupName)} */}
       <Body groupName={Group[0]?.groupName} />
+      <Footer />
     </div>
   );
 }

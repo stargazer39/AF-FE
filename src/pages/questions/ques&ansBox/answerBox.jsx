@@ -20,6 +20,7 @@ export function AnswerBox({ data }) {
   const modifyData ={
     id: data.id,
     answerID : data.answerID,
+    answerPID : data.answerPID,
     answer : data.answer,
     name : data.name,
     setModifyModal : setModifyModal,
@@ -28,11 +29,10 @@ export function AnswerBox({ data }) {
   }
   
   return (
-    <div className="p-4 flex flex-col rounded-md bg-gradient-to-tr from-gray-200/60 to-stone-800/20  mt-2">
+    <div className="p-4 flex flex-col rounded-md bg-gradient-to-tr from-gray-200/100 to-stone-800/20  mt-2">
       <div className="flex">
         <div className="w-2/12 pt-1/2">
             <h4 className="text-xl font-bold">{data.name}</h4>
-            {/* <p className="text-gray-500">{data.date}</p> */}
         </div>
 
         <div className="mt-4 w-9/12">
@@ -41,7 +41,6 @@ export function AnswerBox({ data }) {
       </div>
       
       <div className="flex items-end justify-end mt-2 pb-4">
-
         {showButton && (
           <div>
             {currentUser?._id == data.answerPID  && (

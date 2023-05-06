@@ -14,6 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import HomeIcon from "@mui/icons-material/Home";
 import QuizIcon from "@mui/icons-material/Quiz";
+import FeedBackIcon from "@mui/icons-material/Feedback";
 import GroupIcon from "@mui/icons-material/Groups";
 import PersonIcon from "@mui/icons-material/Person";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -28,11 +29,12 @@ import { useDispatch } from "react-redux";
 import { userActions } from "../../Store/user-slice";
 
 const ICON_SIZE = "medium";
-const pages = ["", "Question/recommended", "user/viewmygroups"];
+const pages = ["", "questions", "user/viewmygroups", "rating"];
 const pageList = {
   "/": <HomeIcon fontSize={ICON_SIZE} />,
-  "/Question/recommended": <QuizIcon fontSize={ICON_SIZE} />,
+  "/questions": <QuizIcon fontSize={ICON_SIZE} />,
   "/user/viewmygroups": <GroupIcon fontSize={ICON_SIZE} />,
+  "/rating": <FeedBackIcon fontSize={ICON_SIZE} />,
 };
 const settings = ["Profile", "Logout"];
 const settingList = {
@@ -97,7 +99,7 @@ const ResponsiveAppBar = () => {
     <AppBar
       position="sticky"
       sx={{
-        backgroundColor: "#1d2228",
+        backgroundColor: "#1976d2",
       }}
     >
       <Container maxWidth="xl">
@@ -150,7 +152,7 @@ const ResponsiveAppBar = () => {
                 },
               ]}
             >
-              <SearchAppBar />
+              {/* <SearchAppBar /> */}
             </Box>
             {/* menu for big screens*/}
             <Box

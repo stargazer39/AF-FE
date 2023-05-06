@@ -1,6 +1,8 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import TestPage from "../pages/Test/test";
+import Feed from "../pages/home/feed";
+import GetCurrentUser from "../hooks/getCurrentUser";
+import Login from "../pages/Auth/Login";
 
 // import CreateGroup from "../pages/groups/CreateGroup";
 import Questions from "../pages/questions/userQuestions";
@@ -18,10 +20,12 @@ import UserPosts from "../pages/posts/UserPosts";
 import GroupPosts from "../pages/posts/GroupPosts";
 
 export default function CustomerRouter() {
+   const currentUser = GetCurrentUser();
   return (
     <Routes>
-      <Route path="/test" element={<TestPage />} />
-      <Route path="/" element={<TestPage />} />
+      {/* <Route path="/test" element={<Feed />} /> */}
+      <Route path="/" element={currentUser ? <Feed /> : <Login />} />
+      <Route path="/home" element={currentUser ? <Feed /> : <Login />} />
 
       <Route path="/questions" element={<Questions />} />
 
