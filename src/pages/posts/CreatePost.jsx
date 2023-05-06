@@ -1,7 +1,7 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { genRandFileName } from "./../../utils/random";
 import { uploadFile } from "../../firebase";
-import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { RiImageAddLine } from "react-icons/ri";
 import { IoCloseSharp } from "react-icons/io5";
@@ -9,13 +9,12 @@ import { useSelector } from "react-redux";
 import "./newProduct.css";
 import NavBar from "./../../components/Navbar/Navbar";
 import Footer from "../../components/Navbar/Footer";
-import cover from "../../images/post.png"
+import cover from "../../images/post.png";
 import LoadingMod from "./loadingModal";
+import GetCurrentUser from "../../hooks/getCurrentUser";
 
 function CreatePost() {
   const [contentText, setContentText] = useState("");
-  const [likes, setLikes] = useState({});
-  const [comments, setComments] = useState([]);
   const [selectedfile, setSelectedfile] = useState(null);
   const [selectedfileIndex, setSelectedfileIndex] = useState(-1);
   const [imagesList, setimagesList] = useState([]);
@@ -23,15 +22,14 @@ function CreatePost() {
   const [loading, setLoading] = useState(false);
   const myRefname = useRef(null);
   const [message, setMessage] = useState("");
-  const groupId = useSelector((state) => state.group).selectedGroup._id;
-  const user = useSelector((state) => state.user).currentUser;
+  const user =
+    useSelector((state) => state.user).currentUser || GetCurrentUser();
   const userId = user?._id;
+  const { groupId } = useParams();
 
   const navigate = useNavigate();
 
   function handleChange(e) {
-    console.log(e.target.files);
-
     let temUrlparr = [...imagesUrlList];
     temUrlparr.unshift(URL.createObjectURL(e.target.files[0]));
     setImagesUrlList(temUrlparr);
@@ -85,15 +83,14 @@ function CreatePost() {
 
     const newItem = {
       userId,
-      groupId,
+      groupId: groupId || "",
       contentText,
       images: fileDetails,
-      likes,
-      comments,
+      likes: {},
+      comments: [],
       userName: user?.username,
       photoUrl: user?.photo_url,
     };
-    console.log(newItem);
 
     fetch("http://localhost:3002/api/post", {
       method: "POST",
@@ -104,7 +101,6 @@ function CreatePost() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setMessage("successful");
         navigate(-1);
       })
@@ -126,8 +122,13 @@ function CreatePost() {
         </div>
         {/* image upload and inputs set */}
         <div className="flex items-center justify-center mb-10">
-          <div className="w-5/6 flex flex-wrap  2xl:flex-row items-center justify-center bg-gray-100 pt-12 rounded-xl bg-left-bottom bg-center bg-no-repeat " 
-          style={{ backgroundImage: `url(${cover})`, backgroundSize: "17%", backgroundPosition: "left bottom"}}
+          <div
+            className="w-5/6 flex flex-wrap  2xl:flex-row items-center justify-center bg-gray-100 pt-12 rounded-xl bg-left-bottom bg-center bg-no-repeat "
+            style={{
+              backgroundImage: `url(${cover})`,
+              backgroundSize: "17%",
+              backgroundPosition: "left bottom",
+            }}
           >
             {/* image upload */}
             <div className=" w-[600px] m-8 flex flex-row">
@@ -244,7 +245,7 @@ function CreatePost() {
                   />
                 </div>
               </div>
-              {message && (<LoadingMod />)}
+              {loading && <LoadingMod />}
             </div>
           </div>
         </div>

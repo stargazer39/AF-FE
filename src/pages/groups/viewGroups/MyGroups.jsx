@@ -1,8 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import GetCurrentUser from "../../../hooks/getCurrentUser";
+import { useDispatch } from "react-redux";
+import { groupActions } from "../../../Store/group-slice";
 
 const MyGroups = ({ groups, handleDelete }) => {
   const currentUser = GetCurrentUser();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  function groupClicked(group) {
+    dispatch(groupActions.replaceSelectedGroup({ selectedGroup: group }));
+    navigate(`/singleGroup/${group._id}`);
+  }
 
   return (
     <div class="grid grid-cols-4 gap-6 py-4 px-8 ">
@@ -10,9 +19,13 @@ const MyGroups = ({ groups, handleDelete }) => {
         <>
           {currentUser && currentUser._id === group.adminId ? (
             <div class="max-w-sm rounded overflow-hidden shadow-lg hover:scale-110 ease-in duration-200">
-              <Link to={`/singleGroup/${group._id}`}>
-            <img class="w-full h-60" src={group.groupIcon[1]} alt="Group icon" />
-          </Link>
+              <div onClick={() => groupClicked(group)}>
+                <img
+                  class="w-full h-60"
+                  src={group.groupIcon[1]}
+                  alt="Group icon"
+                />
+              </div>
               <div class="px-6 py-4 ">
                 <div className="flex justify-center mb-5">
                   <button

@@ -1,38 +1,30 @@
 import React, { useEffect, useState } from "react";
 import Post from "./Post";
-import HeaderLikeThing from "./HeaderLikeThing";
 import PostSearch from "./PostSearch";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 import { BsPen } from "react-icons/bs";
-import { useNavigate, useParams } from "react-router";
-import GetCurrentUser from "../../hooks/getCurrentUser";
-import gg from "../../images/noData.png";
-import DeletePostModal from "./DeletePostModal";
 
-function GroupPosts() {
+function FeedPosts() {
   const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [deleteCount, setDeleteCount] = useState(0);
-  const { _id: groupId } = useParams();
+  const groupId = "feedPost";
 
   useEffect(() => {
-    if (!!groupId) {
-      setLoading(true);
-      fetch(`http://localhost:3002/api/post/groups/${groupId}/posts`)
-        .then((response) => response.json())
-        .then((data) => setPosts(data))
-        .catch((error) => console.error(error))
-        .finally(() => {
-          setLoading(false);
-        });
-    }
-  }, [groupId, deleteCount]);
+    setLoading(true);
+    fetch("http://localhost:3002/api/post/feed/posts")
+      .then((response) => response.json())
+      .then((data) => setPosts(data))
+      .catch((error) => console.error(error))
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
 
   function searchPosts(searchValue) {
     setLoading(true);
-    const tempSearchObj = { groupId };
+    const tempSearchObj = {};
     axios
       .get("http://localhost:3002/api/post/posts/search", {
         params: { searchValue, tempSearchObj },
@@ -44,6 +36,7 @@ function GroupPosts() {
         console.log(error);
       })
       .finally(() => {
+        console.log("finally");
         setLoading(false);
       });
   }
@@ -57,31 +50,19 @@ function GroupPosts() {
         >
           Add a new post <BsPen className="h-6 w-6 ml-5" />
         </div>
-
         <PostSearch searchPosts={searchPosts} />
         {posts?.length > 0 ? (
           posts.map((post) => {
-            return (
-              <Post
-                key={post._id}
-                post={post}
-                setDeleteCount={setDeleteCount}
-              />
-            );
+            return <Post key={post.id} post={post} />;
           })
         ) : loading ? (
           <div className="flex flex-row w-full justify-center">loading...</div>
         ) : (
-          <div className="flex mt-24 mb-48 flex-col items-center w-full">
-            <h1 className="text-2xl text-blue-600">
-              Be the first to add a post
-            </h1>
-            <img src={gg} width={400} alt="no Data" />
-          </div>
+          <div className="flex flex-row w-full justify-center">no posts</div>
         )}
       </div>
     </div>
   );
 }
 
-export default GroupPosts;
+export default FeedPosts;

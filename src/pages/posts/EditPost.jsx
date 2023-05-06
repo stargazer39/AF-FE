@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import NavBar from "./../../components/Navbar/Navbar";
 import Footer from "../../components/Navbar/Footer";
 import LoadingMod from "./loadingModal";
-import cover from "../../images/post.png"
+import cover from "../../images/post.png";
 
 function EditPost() {
   const myRefname = useRef(null);
@@ -20,10 +20,6 @@ function EditPost() {
   const [imagesUrls, setImagesUrls] = useState([]);
   const [loading, setLoading] = useState(false);
   const post = useSelector((state) => state.post).selectedPost;
-  console.log("post in edit", post);
-
-  const [userId, setUserID] = useState("1");
-  const [groupId, setGroupID] = useState("1");
   const [postId, setPostId] = useState(undefined);
   const [contentText, setContentText] = useState("");
 
@@ -32,8 +28,6 @@ function EditPost() {
   useEffect(() => {
     if (post) {
       setPostId(post._id);
-      setUserID(post.userId);
-      setGroupID(post.groupId);
       setContentText(post.contentText);
       setImagesUrls(post.images);
       let data = [];
@@ -105,7 +99,7 @@ function EditPost() {
   }
   async function sendData(e) {
     e.preventDefault();
-    setLoading(true)
+    setLoading(true);
     // if (!validations()) return 0;
     let newImagesUrls = [];
     let newImageList = imagesList;
@@ -161,9 +155,14 @@ function EditPost() {
         </div>
         {/* image upload and inputs set */}
         <div className="flex items-center justify-center mb-10">
-          <div className="w-5/6 flex flex-wrap  2xl:flex-row items-center justify-center bg-gray-100 pt-12 rounded-xl bg-left-bottom bg-center bg-no-repeat " 
-            style={{ backgroundImage: `url(${cover})`, backgroundSize: "17%", backgroundPosition: "left bottom"}}
-            >
+          <div
+            className="w-5/6 flex flex-wrap  2xl:flex-row items-center justify-center bg-gray-100 pt-12 rounded-xl bg-left-bottom bg-center bg-no-repeat "
+            style={{
+              backgroundImage: `url(${cover})`,
+              backgroundSize: "17%",
+              backgroundPosition: "left bottom",
+            }}
+          >
             {/* image upload */}
             <div className=" w-[600px] m-8 flex flex-row ">
               {/* selected image */}
@@ -284,7 +283,7 @@ function EditPost() {
             </div>
           </div>
         </div>
-        {loading && (<LoadingMod />)}
+        {loading && <LoadingMod />}
         <Footer />
       </div>
     </>

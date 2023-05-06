@@ -20,7 +20,7 @@ import UserPosts from "../pages/posts/UserPosts";
 import GroupPosts from "../pages/posts/GroupPosts";
 
 export default function CustomerRouter() {
-   const currentUser = GetCurrentUser();
+  const currentUser = GetCurrentUser();
   return (
     <Routes>
       {/* <Route path="/test" element={<Feed />} /> */}
@@ -30,12 +30,11 @@ export default function CustomerRouter() {
       <Route path="/questions" element={<Questions />} />
 
       <Route path="/example/file-upload" element={<FileUpload />} />
-      <Route path="/addPost" element={<CreatePost />} />
+      <Route path="/addPost/:groupId" element={<CreatePost />} />
       <Route path="/editPost" element={<EditPost />} />
       <Route path="/posts" element={<Posts />} />
       <Route path="/user/posts" element={<UserPosts />} />
       <Route path="/group/posts" element={<GroupPosts />} />
-
 
       {/*groups related routes*/}
       <Route path="/user/addGroup" element={<CreateGroup />} />
