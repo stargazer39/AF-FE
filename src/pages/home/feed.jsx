@@ -17,7 +17,7 @@ if(!user){
   navigate('/login');
 }
 
-const [ShowTab, setShowTab] = useState("post");
+  const [ShowTab, setShowTab] = useState("post");
   const [postButtonColor, setPostButtonColor] = useState("#007BED");
   const [quesButtonColor, setQuesButtonColor] = useState("#2b2b2b");
   const [rc, setRc] = useState("#007aed55");

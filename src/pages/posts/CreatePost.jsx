@@ -10,7 +10,7 @@ import "./newProduct.css";
 import NavBar from "./../../components/Navbar/Navbar";
 import Footer from "../../components/Navbar/Footer";
 import cover from "../../images/post.png"
-import LoadingMod from "./deleteModal";
+import LoadingMod from "./loadingModal";
 
 function CreatePost() {
   const [contentText, setContentText] = useState("");

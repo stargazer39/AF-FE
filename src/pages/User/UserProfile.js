@@ -144,6 +144,7 @@ const UserProfile = () => {
   const [username, setUsername] = useState(userdata.username);
   const [botMessage, setBotMessage] = useState("");
 
+
   const handleOpen = () => {
     setIsOpen(!isOpen);
   };
@@ -240,13 +241,13 @@ const UserProfile = () => {
       <hr className="bg-black h-1" />
 
       <div className="flex px-28 mt-7">
-        <div className="flex-1">
+        <div className="w-3/12">
           <UserInfoPanel user={user} /> {/* New component */}
         </div>
-        <div className="flex-2 ml-10">
+        <div className="w-6/12 ml-10">
           <PostPanel />
         </div>
-        <div className="flex-1 ml-10">
+        <div className="w-3/12 ml-10">
           <FriendsPanel /> {/* New component */}
         </div>
       </div>
