@@ -7,6 +7,7 @@ import CustomerRouter from "./routes/customer";
 import { Provider } from "react-redux";
 import Store from "./Store/Index";
 import AuthRouter from "./routes/auth";
+import RatingRouter from "./routes/rating";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -17,6 +18,7 @@ root.render(
       <BrowserRouter>
         <CustomerRouter />
         <AuthRouter />
+        <RatingRouter />
       </BrowserRouter>
     </Provider>
   </React.StrictMode>
