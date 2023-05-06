@@ -28,10 +28,10 @@ import { useDispatch } from "react-redux";
 import { userActions } from "../../Store/user-slice";
 
 const ICON_SIZE = "medium";
-const pages = ["", "Question/recommended", "user/viewmygroups"];
+const pages = ["", "questions", "user/viewmygroups"];
 const pageList = {
   "/": <HomeIcon fontSize={ICON_SIZE} />,
-  "/Question/recommended": <QuizIcon fontSize={ICON_SIZE} />,
+  "/questions": <QuizIcon fontSize={ICON_SIZE} />,
   "/user/viewmygroups": <GroupIcon fontSize={ICON_SIZE} />,
 };
 const settings = ["Profile", "Logout"];
@@ -313,7 +313,7 @@ const ResponsiveAppBar = () => {
             {/* user for small screens */}
             <Box sx={[{ display: { xs: "flex", md: "none" } }]}>
               <Tooltip title="Open settings">
-                <IconButton 
+                <IconButton
                   onClick={handleOpenUserMenu}
                   sx={{ p: 0, marginRight: "20px" }}
                 >
