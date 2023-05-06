@@ -18,6 +18,29 @@ const PostPanel = () => {
   // if(!user){
   //   navigate('/login');
   // }
+
+  const [ShowTab, setShowTab] = useState("post");
+  const [postButtonColor, setPostButtonColor] = useState("#007BED");
+  const [quesButtonColor, setQuesButtonColor] = useState("#2b2b2b");
+  const [rc, setRc] = useState("#007aed55");
+  const [qc, setQc] = useState("#f1f1f1");
+
+  const postButton = () => {
+    setShowTab("post");
+    setPostButtonColor("#007BED");
+    setQuesButtonColor("#2b2b2b");
+    setRc("#007aed55");
+    setQc("#f1f1f1");
+  };
+
+  const quesButton = () => {
+    setShowTab("ques");
+    setPostButtonColor("#2b2b2b");
+    setQuesButtonColor("#007BED");
+    setRc("#f1f1f1");
+    setQc("#007aed55");
+  };
+
   
 
   const handleOpen = () => {
@@ -85,10 +108,35 @@ const PostPanel = () => {
           </div>
         </div>
       </Card> */}
-      <div>
-        <HeaderLikeThing setType={setType} />
+      <div className="">
+        <div className="w-full flex justify-center mt-2">
+          <div className="flex grid-flow-row w-full   pb-10 ">
+            <div
+              className="w-full text-xl flex items-center justify-center font-bold bg-red-400 p-4 border-solid border-b-4"
+              style={{ color: postButtonColor, borderColor: rc , backgroundColor : rc}}
+              onClick={postButton}
+            >
+              Posts
+            </div>
+            <div
+              className="w-full text-xl font-bold flex items-center justify-center p-4 border-solid border-b-4 pl-2"
+              style={{ color: quesButtonColor, borderColor: qc,  backgroundColor : qc}}
+              onClick={quesButton}
+            >
+              Questions
+            </div>
+          </div>
+        </div>
+
+        {ShowTab === "post" ? (
+          <UserPosts />
+        ) : (
+          <Questions profileID={userID} />
+        )}
+
+
         
-        {type === "post" ? <UserPosts /> : <Questions profileID={userID} />}
+        {/* {type === "post" ? <UserPosts /> : <Questions profileID={userID} />} */}
       
         <br />
       </div>
