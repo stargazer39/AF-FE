@@ -6,9 +6,11 @@ import { useEffect } from "react";
 import AddQuestionModal from "./questionModals/addQuestion";
 import GetCurrentUser from "../../hooks/getCurrentUser";
 import gg from "../../images/noData.png"
+import { useNavigate } from "react-router";
 
 function GroupQuestions({groupData, profileID}) {
   const currentUser = GetCurrentUser()
+  const navigate = useNavigate();
   const [questions, setQuestions] = useState([])
   const [quesModal, setQuesModal] = useState(false)
   const [userID , setUserID] = useState(profileID)

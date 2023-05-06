@@ -5,12 +5,17 @@ import GetCurrentUser from "../../hooks/getCurrentUser";
 import { useState, useEffect } from "react";
 import cover from "../../images/cover.png"
 import Footer from "../../components/Navbar/Footer";
-
+import { useNavigate } from "react-router";
 
 
 function Feed() {
 const user = GetCurrentUser();
+const navigate = useNavigate();
 const userID = user?._id
+
+if(!user){
+  navigate('/login');
+}
 
 const [ShowTab, setShowTab] = useState("post");
   const [postButtonColor, setPostButtonColor] = useState("#007BED");
@@ -43,7 +48,7 @@ const [ShowTab, setShowTab] = useState("post");
           <img src={cover} width="100%" alt="Loading Icon" />
         </div> */}
         <div class="relative bg-red-200 mb-8">
-          <img src={cover} class="w-full" alt="Loading Icon" />
+          <img src={cover} class="w-full" alt="Cover" />
           <div class="absolute top-2/4 left-1/4 transform -translate-x-1/2 -translate-y-1/2">
             <p class="text-blue-900 font-bold text-6xl font-Poppins  ">KNOWLEDGE TO <br />SUCCESS</p>
             <p class="text-blue-900 font-bold text font-Poppins  ">We're here to help you build your future with confidence!</p>

@@ -4,14 +4,21 @@ import GetCurrentUser from "../../hooks/getCurrentUser";
 import UserPosts from "../../pages/posts/UserPosts";
 import HeaderLikeThing from "../../pages/posts/HeaderLikeThing";
 import Questions from "../../pages/questions/userQuestions";
+import { useNavigate } from "react-router";
 
 const PostPanel = () => {
   const user = GetCurrentUser();
   const userID = user?._id
   const [type, setType] = useState("post");
+  const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(false);
   const [addQuestionModal, setAddQuestionModal] = useState(false);
+
+  // if(!user){
+  //   navigate('/login');
+  // }
+  
 
   const handleOpen = () => {
     setIsOpen(!isOpen);
