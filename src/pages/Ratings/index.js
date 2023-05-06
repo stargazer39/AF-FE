@@ -67,6 +67,7 @@ const Index = () => {
               height={200}
             />
           </Grid>
+          <br />
 
           <Grid item md={3} zeroMinWidth>
             <Grid

@@ -164,9 +164,7 @@ const UserProfile = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setBotMessage(
-        "🤖 Hi, welcome to the user profile!\n How Can I help you?"
-      );
+      setBotMessage("Hi, welcome to the user profile!");
     }, 3000); // 3 seconds delay
 
     return () => clearTimeout(timer);

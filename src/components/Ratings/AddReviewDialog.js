@@ -48,6 +48,7 @@ export default function AddReviewDialog({
         rating: rating,
         userID: currentUser._id,
         username: currentUser.username,
+        photo_url: currentUser.photo_url,
       };
       const result = await createReview(reviewContent);
       console.log(result);

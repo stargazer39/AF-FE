@@ -30,6 +30,9 @@ export default function EditUserDialog({
   const [coverImage, setcoverImage] = useState("");
   const [coverImageURL, setCoverImageURL] = useState(user.cover_photo_url);
   const [usernameD, setUsernameD] = useState();
+  // const [work, setWork] = useState("");
+  // const [edu, setEdu] = useState("");
+  // const [location, setLocation] = useState("");
 
   const handleFileChangeCover = async (e) => {
     try {
@@ -73,6 +76,9 @@ export default function EditUserDialog({
       username: usernameD,
       photo_url: imageURL,
       cover_photo_url: coverImageURL,
+      // work: work,
+      // edu: edu,
+      // location: location,
     };
 
     const res = await updateUser(data);
@@ -122,6 +128,17 @@ export default function EditUserDialog({
                 variant="outlined"
                 onChange={(e) => setUsernameD(e.target.value)}
               />
+              {/* <TextField
+                onChange={(e) => setEdu(e.target.value)}
+                label="Education"
+                helperText="Please enter your review here"
+                variant="filled"
+                fullWidth
+                multiline
+                rows={5}
+                required
+                sx={{ marginTop: 2, marginBottom: 2, display: "block" }}
+              /> */}
             </Grid>
             <Grid item xs={12} sm={6}>
               <Card>
