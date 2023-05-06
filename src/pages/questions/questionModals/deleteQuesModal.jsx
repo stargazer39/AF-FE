@@ -3,6 +3,7 @@ import axios from 'axios';
 import { API_ENDPOINT } from '../../../config';
 import loading from "../../../images/loading.gif"
 
+
 function DeleteQuestionModal({ data }) {
   const [userID, setUserID] = useState("")
   const [userName, setUserName] = useState("Semora chan")
@@ -37,7 +38,7 @@ function DeleteQuestionModal({ data }) {
       <div className="fixed inset-0 bg-gradient-to-br from-cyan-700 to-blue-900 opacity-70" ></div>
       <div className="relative bg-gray-200 rounded-lg w-3/6">
         <h1 className=" text-center pt-4 text-2xl">Remove your Questions</h1>
-        <div className="pt-4 pb-16 pl-8 pr-8 flex text-xl items-center justify-center w-full">
+        <div className="pt-4 bg-no-repeat pb-16 pl-8 pr-8 flex text-xl items-center justify-center w-full">
         {!loadingIcon ? 
           <h1>You are about to delete your question. Keep in mind that this action cannot be undone. You sure about removing?</h1>
           : 
