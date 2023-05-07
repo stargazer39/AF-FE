@@ -17,6 +17,7 @@ import { orderActions } from "../../Store/post-slice";
 import { useSelector } from "react-redux";
 import DeletePostModal from "./DeletePostModal";
 import { useIsOverflow } from "../../hook/useIsOverflow";
+import { API_ENDPOINT } from "../../config";
 
 function Post({ post, setDeleteCount }) {
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ function Post({ post, setDeleteCount }) {
   useEffect(() => {
     // update post
     if (Object.keys(debouncedValue).length > 0 && changed) {
-      fetch(`http://localhost:3002/api/post/posts/${postId}`, {
+      fetch(`${API_ENDPOINT}/api/post/posts/${postId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

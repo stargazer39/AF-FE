@@ -10,6 +10,7 @@ import NavBar from "./../../components/Navbar/Navbar";
 import Footer from "../../components/Navbar/Footer";
 import LoadingMod from "./loadingModal";
 import cover from "../../images/post.png";
+import { API_ENDPOINT } from "../../config";
 
 function EditPost() {
   const myRefname = useRef(null);
@@ -133,7 +134,7 @@ function EditPost() {
       images: newImagesUrls,
     };
     console.log(newItem);
-    fetch(`http://localhost:3002/api/post/posts/${postId}`, {
+    fetch(`${API_ENDPOINT}/api/post/posts/${postId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -275,7 +276,7 @@ function EditPost() {
                   <input
                     onClick={(e) => sendData(e)}
                     type="submit"
-                    value={"Update"}
+                    value={"UPDATE"}
                     className="bg-blue-500 text-white h-10 w-32 cursor-pointer hover:bg-blue-600 active:blue-700 rounded mb-20 "
                   />
                 </div>
