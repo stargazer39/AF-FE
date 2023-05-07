@@ -40,7 +40,7 @@ export default function CustomerRouter() {
       <Route path="/user/addGroup" element={<CreateGroup />} />
       {/* <Route path="group/addPost" element={<CreatePost />} /> */}
       <Route path="/user/viewgroups" element={<ViewGroups />} />
-      <Route path="/user/viewmygroups" element={<ViewMyGroups />} />
+      <Route path="/groups" element={<ViewMyGroups />} />
       <Route path="/updateProduct/:_id" element={<UpdateGroup />} />
       <Route path="/singleGroup/:_id" element={<OneGroup />} />
     </Routes>

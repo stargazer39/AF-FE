@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import GroupCard from "./GroupCard";
 import SearchBar from "./SearchBar";
 import Navbar from "../../../components/Navbar/Navbar";
+import Footer from "../../../components/Navbar/Footer";
 
 function ViewGroups() {
   const [GroupList, setGroupList] = useState(null);
@@ -93,6 +94,7 @@ function ViewGroups() {
       <hr />
       {GroupList && <GroupCard groups={GroupList} />}
     </div>
+    <Footer/>
     </>
   );
 }
