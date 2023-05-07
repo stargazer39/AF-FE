@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Post from "./Post";
 import HeaderLikeThing from "./HeaderLikeThing";
+import { API_ENDPOINT } from "../../config";
 
 function Posts() {
   const [posts, setPosts] = useState([]);
@@ -9,7 +10,7 @@ function Posts() {
   const [groupId, setGroupId] = useState("1");
 
   useEffect(() => {
-    fetch(`http://localhost:3002/api/post/groups/${groupId}/posts`)
+    fetch(`${API_ENDPOINT}/api/post/groups/${groupId}/posts`)
       .then((response) => response.json())
       .then((data) => setPosts(data))
       .catch((error) => console.error(error));
