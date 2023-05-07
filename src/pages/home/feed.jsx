@@ -3,21 +3,21 @@ import Navbar from "../../components/Navbar/Navbar";
 import FeedQuestions from "../questions/feedQuestions";
 import GetCurrentUser from "../../hooks/getCurrentUser";
 import { useState, useEffect } from "react";
-import cover from "../../images/cover.png"
+import cover from "../../images/cover.png";
 import Footer from "../../components/Navbar/Footer";
 import { useNavigate } from "react-router";
-
+import FeedPosts from "../posts/FeedPosts";
 
 function Feed() {
-const user = GetCurrentUser();
-const navigate = useNavigate();
-const userID = user?._id
+  const user = GetCurrentUser();
+  const navigate = useNavigate();
+  const userID = user?._id;
 
-if(!user){
-  navigate('/login');
-}
+  if (!user) {
+    navigate("/login");
+  }
 
-const [ShowTab, setShowTab] = useState("post");
+  const [ShowTab, setShowTab] = useState("post");
   const [postButtonColor, setPostButtonColor] = useState("#007BED");
   const [quesButtonColor, setQuesButtonColor] = useState("#2b2b2b");
   const [rc, setRc] = useState("#007aed55");
@@ -40,7 +40,7 @@ const [ShowTab, setShowTab] = useState("post");
   };
 
   return (
-    <div className="App">    
+    <div className="App">
       <body>
         <Navbar />
         {/* <h1 className="text-3xl font-bold underline">Hello world!</h1> */}
@@ -50,22 +50,35 @@ const [ShowTab, setShowTab] = useState("post");
         <div class="relative bg-red-200 mb-8">
           <img src={cover} class="w-full" alt="Cover" />
           <div class="absolute top-2/4 left-1/4 transform -translate-x-1/2 -translate-y-1/2">
-            <p class="text-blue-900 font-bold text-6xl font-Poppins  ">KNOWLEDGE TO <br />SUCCESS</p>
-            <p class="text-blue-900 font-bold text font-Poppins  ">We're here to help you build your future with confidence!</p>
+            <p class="text-blue-900 font-bold text-6xl font-Poppins  ">
+              KNOWLEDGE TO <br />
+              SUCCESS
+            </p>
+            <p class="text-blue-900 font-bold text font-Poppins  ">
+              We're here to help you build your future with confidence!
+            </p>
           </div>
         </div>
         <div className="w-full flex justify-center mt-2">
           <div className="flex grid-flow-row w-4/6   pb-10 ">
             <div
               className="w-full text-xl flex items-center justify-center font-bold bg-red-400 p-4 border-solid border-b-4"
-              style={{ color: postButtonColor, borderColor: rc , backgroundColor : rc}}
+              style={{
+                color: postButtonColor,
+                borderColor: rc,
+                backgroundColor: rc,
+              }}
               onClick={postButton}
             >
               Posts
             </div>
             <div
               className="w-full text-xl font-bold flex items-center justify-center p-4 border-solid border-b-4 pl-2"
-              style={{ color: quesButtonColor, borderColor: qc,  backgroundColor : qc}}
+              style={{
+                color: quesButtonColor,
+                borderColor: qc,
+                backgroundColor: qc,
+              }}
               onClick={quesButton}
             >
               Questions
@@ -74,9 +87,9 @@ const [ShowTab, setShowTab] = useState("post");
         </div>
 
         {ShowTab === "post" ? (
-          " " // Nisal put yout one here
+          <FeedPosts />
         ) : (
-          <FeedQuestions groupData={""} profileID={userID}/>
+          <FeedQuestions groupData={""} profileID={userID} />
         )}
 
         <Footer />

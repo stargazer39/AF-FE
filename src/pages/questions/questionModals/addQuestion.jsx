@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { API_ENDPOINT } from '../../../config';
 import GetCurrentUser from '../../../hooks/getCurrentUser';
+import cover from "../../../images/questions/qqq.png"
 
 function AddQuestionModal({ setAddQuestionModal, groupData, updater }) {
   const user = GetCurrentUser();
@@ -49,7 +50,15 @@ function AddQuestionModal({ setAddQuestionModal, groupData, updater }) {
       <div className="relative bg-gray-200 rounded-lg w-3/6">
         <h1 className=" text-center pt-4 text-2xl">Ask a new Question</h1>
         <div className="pt-4 pb-4 pl-8 pr-8">
-          <textarea onChange={event => setQuestion(event.target.value)} type="text" className="w-full  h-64 rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="What do you wanna ask?" />
+          <textarea onChange={event => setQuestion(event.target.value)} type="text" className="w-full bg-no-repeat h-64 rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="What do you wanna ask?" 
+           style={{
+            backgroundImage: `url(${cover})`,
+            backgroundSize: "35%",
+            backgroundPosition: "right bottom",
+            // width: "100%",
+            height: "375px",
+          }}
+          />
           {error && (<h1 className='text-red-500'>{error}</h1>) }
         </div> 
         <div className="flex justify-end px-4 pb-4">
