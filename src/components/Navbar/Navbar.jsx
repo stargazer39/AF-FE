@@ -29,11 +29,11 @@ import { useDispatch } from "react-redux";
 import { userActions } from "../../Store/user-slice";
 
 const ICON_SIZE = "medium";
-const pages = ["", "questions", "user/viewmygroups", "rating"];
+const pages = ["", "questions", "groups", "rating"];
 const pageList = {
   "/": <HomeIcon fontSize={ICON_SIZE} />,
   "/questions": <QuizIcon fontSize={ICON_SIZE} />,
-  "/user/viewmygroups": <GroupIcon fontSize={ICON_SIZE} />,
+  "/groups": <GroupIcon fontSize={ICON_SIZE} />,
   "/rating": <FeedBackIcon fontSize={ICON_SIZE} />,
 };
 const settings = ["Profile", "Logout"];

@@ -11,7 +11,6 @@ function CreateGroup() {
   const [groupName, setGroupName] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
-  const [adminId, setadminId] = useState("");
 
   //get current user
   const currentUser = GetCurrentUser()
@@ -67,7 +66,7 @@ function CreateGroup() {
             .post("http://localhost:3002/api/group/addgroup", newGroup)
             .then(() => {
               alert("Group Created Successfully!!");
-              history("/user/viewmygroups");
+              history("/groups");
             })
             .catch((err) => {
               console.log(err.message);

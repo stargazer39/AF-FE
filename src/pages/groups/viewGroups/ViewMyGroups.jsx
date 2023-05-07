@@ -6,6 +6,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import FollowingGroups from "./FollowingGroups";
 import Navbar from "../../../components/Navbar/Navbar";
+import Footer from "../../../components/Navbar/Footer";
 
 function ViewMyGroups() {
   const [GroupList, setGroupList] = useState(null);
@@ -56,7 +57,7 @@ function ViewMyGroups() {
       </div>
       
 
-      
+      <Footer/>
     </div>
   );
 }
