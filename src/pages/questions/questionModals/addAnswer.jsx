@@ -47,7 +47,7 @@ function AddAnswerModal({ data }) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
+    <div className="fixed inset-0 z-50 flex items-center justify-center" data-testid="Q001">
       <div className="fixed inset-0 bg-gradient-to-br from-cyan-700 to-blue-900 opacity-70" ></div>
       <div className="relative bg-gray-200 rounded-lg w-3/6">
         <h1 className=" text-center pt-4 text-2xl">Add an answer</h1>

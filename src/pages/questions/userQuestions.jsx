@@ -5,6 +5,7 @@ import { AnswerBox } from "./ques&ansBox/answerBox";
 import { useEffect } from "react";
 import AddQuestionModal from "./questionModals/addQuestion";
 import gg from "../../images/noData.png"
+import { API_ENDPOINT } from '../../config';
 
 
 function Questions({groupData, profileID}) {
@@ -22,7 +23,7 @@ function Questions({groupData, profileID}) {
 
   useEffect(() => {
       axios
-      .get(`http://localhost:3002/api/question/getSingleUserQuestions?userID=${profileID}`)
+      .get(`${API_ENDPOINT}/api/question/getSingleUserQuestions?userID=${profileID}`)
       .then(response => {
         setQuestions(response.data)
       })
