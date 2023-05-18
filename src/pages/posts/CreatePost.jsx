@@ -109,6 +109,10 @@ function CreatePost() {
         setLoading(false);
       });
   }
+  console.log(
+    "disabled",
+    imagesUrlList.length === 0 && contentText.trim() === ""
+  );
 
   return (
     <>
@@ -238,7 +242,10 @@ function CreatePost() {
                     onClick={(e) => sendData(e)}
                     type="submit"
                     value={"CREATE"}
-                    className="bg-blue-500 text-white h-10 w-32 cursor-pointer hover:bg-blue-600 active:blue-700 rounded mb-20 "
+                    disabled={
+                      imagesUrlList.length === 0 && contentText.trim() === ""
+                    }
+                    className="bg-blue-500 disabled:bg-slate-400 text-white h-10 w-32 cursor-pointer hover:bg-blue-600 active:blue-700 rounded mb-20 "
                   />
                 </div>
               </div>
