@@ -123,6 +123,7 @@ function Post({ post, setDeleteCount }) {
           {isCurrentUser && (
             <div className="relative z-10">
               <MdOutlineMoreHoriz
+                id={post.contentText.replace(/\s/g, "")}
                 onClick={() =>
                   setIsOptionsOpen((isOptionsOpen) => !isOptionsOpen)
                 }

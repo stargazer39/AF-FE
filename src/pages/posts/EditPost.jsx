@@ -255,6 +255,7 @@ function EditPost() {
                   <textarea
                     type="text"
                     id="first_name"
+                    name="descrition"
                     class=" border-2 align-middle h-32 border-gray-300 text-gray-900  rounded-lg focus:outline-none block w-96 p-2.5 dark:placeholder-gray-400 text-black dark:focus:outline-none text-md"
                     placeholder="Description"
                     value={contentText}
