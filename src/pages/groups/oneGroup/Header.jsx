@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import GetCurrentUser from "../../../hooks/getCurrentUser";
 import axios from "axios";
+import { API_ENDPOINT } from "../../../config";
 
 const Header = ({ group }) => {
   const { _id } = useParams();
@@ -26,7 +27,7 @@ const Header = ({ group }) => {
 
     console.log("userid", data);
     //update the item
-    axios.patch(`http://localhost:3002/api/group/addFollows/${_id}`, data);
+    axios.patch(`${API_ENDPOINT}/api/group/addFollows/${_id}`, data);
     setFollowing(true);
     localStorage.setItem(`following_${_id}`, true);
     console.log(_id);

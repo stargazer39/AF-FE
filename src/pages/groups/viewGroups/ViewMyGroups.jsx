@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import MyGroups from "./MyGroups";
 import ButtonGroup from "./ButtonGroup";
@@ -7,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import FollowingGroups from "./FollowingGroups";
 import Navbar from "../../../components/Navbar/Navbar";
 import Footer from "../../../components/Navbar/Footer";
+import { API_ENDPOINT } from "../../../config";
 
 function ViewMyGroups() {
   const [GroupList, setGroupList] = useState(null);
@@ -15,7 +15,7 @@ function ViewMyGroups() {
 
   //get all groups
   useEffect(() => {
-    fetch("http://localhost:3002/api/group/getGroups")
+    fetch(`${API_ENDPOINT}/api/group/getGroups`)
       .then((res) => {
         return res.json();
       })
@@ -32,7 +32,7 @@ function ViewMyGroups() {
   //delete groups
   const handleDelete = (_id) => {
     axios
-      .delete(`http://localhost:3002/api/group/deleteGroup/${_id}`)
+      .delete(`${API_ENDPOINT}/api/group/deleteGroup/${_id}`)
       .then(() => {
         alert("deleted Successfully!!");
         console.log(_id);
@@ -47,17 +47,24 @@ function ViewMyGroups() {
     <div>
       <Navbar />
       <ButtonGroup />
-      <h4 class="mb-2 text-2xl font-medium leading-tight text-primary px-9 mt-6"> My Groups</h4>
-      <hr/>
+      <h4 class="mb-2 text-2xl font-medium leading-tight text-primary px-9 mt-6">
+        {" "}
+        My Groups
+      </h4>
+      <hr />
       <div className="">
-        {GroupList && <MyGroups groups={GroupList} handleDelete={handleDelete} />}
-        <h4 class="mb-2 text-2xl font-medium leading-tight text-primary px-9 mt-9 pt-4"> My Followings</h4>
-        <hr/>
+        {GroupList && (
+          <MyGroups groups={GroupList} handleDelete={handleDelete} />
+        )}
+        <h4 class="mb-2 text-2xl font-medium leading-tight text-primary px-9 mt-9 pt-4">
+          {" "}
+          My Followings
+        </h4>
+        <hr />
         {GroupList && <FollowingGroups groupsFollow={GroupList} />}
       </div>
-      
 
-      <Footer/>
+      <Footer />
     </div>
   );
 }

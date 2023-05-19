@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { API_ENDPOINT } from "../../../config";
 
 function SearchBar() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -6,7 +7,9 @@ function SearchBar() {
 
   const handleSearch = async () => {
     try {
-      const response = await fetch(`http://localhost:3002/api/group/getGroups/${searchTerm}`);
+      const response = await fetch(
+        `${API_ENDPOINT}/api/group/getGroups/${searchTerm}`
+      );
       const data = await response.json();
       setSearchResults(data.results);
     } catch (error) {

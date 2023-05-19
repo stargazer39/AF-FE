@@ -1,7 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import GetCurrentUser from "../../../hooks/getCurrentUser";
 import axios from "axios";
-
+import { API_ENDPOINT } from "../../../config";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -28,7 +28,7 @@ const FollowingGroups = ({ groupsFollow }) => {
     }
 
     axios
-      .patch(`http://localhost:3002/api/group/removeFollows/${_id}`, data)
+      .patch(`${API_ENDPOINT}/api/group/removeFollows/${_id}`, data)
       .then(() => {
         alert("deleted Successfully!!");
         console.log(_id);
