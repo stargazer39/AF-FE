@@ -1,7 +1,9 @@
+
 import { useParams } from "react-router";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { API_ENDPOINT } from "../../../config";
+
 import GroupPosts from "../../posts/GroupPosts";
 import GroupQuestions from "../../questions/groupQuestions";
 import GetCurrentUser from "../../../hooks/getCurrentUser";
@@ -31,18 +33,7 @@ function CustTwoTab(props) {
     setQc("#007aed55");
   };
 
-  /////////// read post data
 
-  const [PostList, setPostList] = useState(null);
-
-  const { _id } = useParams();
-
-  //get all groups
-  useEffect(() => {
-    const response = axios.get(`${API_ENDPOINT}/api/post/groups/${_id}/posts`);
-    setPostList([response.data]);
-    console.log([response.data]);
-  }, []);
 
   return (
     <div>

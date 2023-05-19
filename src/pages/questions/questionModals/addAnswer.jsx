@@ -13,7 +13,7 @@ function AddAnswerModal({ data }) {
 
   function validation(){
     if (!answer) {
-      setError("You need to ask something to continue. Duh!")
+      setError("You need to type something to continue. Duh!")
     }else {
       setError(null)
       add()
@@ -47,12 +47,12 @@ function AddAnswerModal({ data }) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
+    <div className="fixed inset-0 z-50 flex items-center justify-center" data-testid="Q001">
       <div className="fixed inset-0 bg-gradient-to-br from-cyan-700 to-blue-900 opacity-70" ></div>
       <div className="relative bg-gray-200 rounded-lg w-3/6">
         <h1 className=" text-center pt-4 text-2xl">Add an answer</h1>
         <div className="pt-4 pb-4 pl-8 pr-8">
-          <textarea onChange={event => setAnswer(event.target.value)} type="text" className="w-full bg-no-repeat  h-64 rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="What do you wanna ask?" 
+          <textarea onChange={event => setAnswer(event.target.value)} type="text" className="w-full bg-no-repeat  h-64 rounded-md py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Tell what you know about this question?" 
             style={{
               backgroundImage: `url(${cover})`,
               backgroundSize: "25%",

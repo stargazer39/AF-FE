@@ -5,6 +5,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { BsPen } from "react-icons/bs";
 import { useNavigate } from "react-router";
+import { API_ENDPOINT } from "../../config";
 
 function UserPosts() {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ function UserPosts() {
   useEffect(() => {
     if (userId) {
       setLoading(true);
-      fetch(`http://localhost:3002/api/post/users/${userId}/posts`)
+      fetch(`${API_ENDPOINT}/api/post/users/${userId}/posts`)
         .then((response) => response.json())
         .then((data) => setPosts(data))
         .catch((error) => console.error(error))
@@ -32,7 +33,7 @@ function UserPosts() {
     setLoading(true);
     const tempSearchObj = { userId: user._id };
     axios
-      .get("http://localhost:3002/api/post/posts/search", {
+      .get(`${API_ENDPOINT}/api/post/posts/search`, {
         params: { searchValue, tempSearchObj },
       })
       .then((response) => {

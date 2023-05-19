@@ -7,6 +7,7 @@ import AddQuestionModal from "./questionModals/addQuestion";
 import GetCurrentUser from "../../hooks/getCurrentUser";
 import gg from "../../images/noData.png"
 import { useNavigate } from "react-router";
+import { API_ENDPOINT } from '../../config';
 
 function GroupQuestions({groupData, profileID}) {
   const currentUser = GetCurrentUser()
@@ -24,8 +25,7 @@ function GroupQuestions({groupData, profileID}) {
 
   useEffect(() => {
       axios
-      // .get(`http://localhost:3002/api/question/getAllQuestions?group=${group}`)
-      .get(`http://localhost:3002/api/question/searchQuestion?question=${searchTerm}&group=${group}`)
+      .get(`${API_ENDPOINT}/api/question/searchQuestion?question=${searchTerm}&group=${group}`)
       .then(response => {
         setQuestions(response.data)
       })

@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Post from "./Post";
-import HeaderLikeThing from "./HeaderLikeThing";
 import PostSearch from "./PostSearch";
 import axios from "axios";
-import { useSelector } from "react-redux";
 import { BsPen } from "react-icons/bs";
 import { useNavigate, useParams } from "react-router";
-import GetCurrentUser from "../../hooks/getCurrentUser";
 import gg from "../../images/noData.png";
-import DeletePostModal from "./DeletePostModal";
+import { API_ENDPOINT } from "../../config";
 
 function GroupPosts() {
   const navigate = useNavigate();
@@ -20,7 +17,7 @@ function GroupPosts() {
   useEffect(() => {
     if (!!groupId) {
       setLoading(true);
-      fetch(`http://localhost:3002/api/post/groups/${groupId}/posts`)
+      fetch(`${API_ENDPOINT}/api/post/groups/${groupId}/posts`)
         .then((response) => response.json())
         .then((data) => setPosts(data))
         .catch((error) => console.error(error))
@@ -34,7 +31,7 @@ function GroupPosts() {
     setLoading(true);
     const tempSearchObj = { groupId };
     axios
-      .get("http://localhost:3002/api/post/posts/search", {
+      .get(`${API_ENDPOINT}/api/post/posts/search`, {
         params: { searchValue, tempSearchObj },
       })
       .then((response) => {

@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import AddQuestionModal from "./questionModals/addQuestion";
 import GetCurrentUser from "../../hooks/getCurrentUser";
 import gg from "../../images/noData.png"
+import { API_ENDPOINT } from '../../config';
 
 function FeedQuestions({groupData, profileID}) {
   const currentUser = GetCurrentUser()
@@ -22,8 +23,9 @@ function FeedQuestions({groupData, profileID}) {
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
+    console.log("THIS IS DATA")
       axios
-      .get(`http://localhost:3002/api/question/getAllQuestions?search=${searchTerm}`)
+      .get(`${API_ENDPOINT}/api/question/getAllQuestions?search=${searchTerm}`)
       .then(response => {
         setQuestions(response.data)
       })

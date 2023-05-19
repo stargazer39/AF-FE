@@ -4,29 +4,31 @@ import PostSearch from "./PostSearch";
 import axios from "axios";
 import { useNavigate } from "react-router";
 import { BsPen } from "react-icons/bs";
+import { API_ENDPOINT } from "../../config";
 
 function FeedPosts() {
   const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [deleteCount, setDeleteCount] = useState(0);
   const groupId = "feedPost";
 
   useEffect(() => {
     setLoading(true);
-    fetch("http://localhost:3002/api/post/feed/posts")
+    fetch(`${API_ENDPOINT}/api/post/feed/posts`)
       .then((response) => response.json())
       .then((data) => setPosts(data))
       .catch((error) => console.error(error))
       .finally(() => {
         setLoading(false);
       });
-  }, []);
+  }, [deleteCount]);
 
   function searchPosts(searchValue) {
     setLoading(true);
     const tempSearchObj = {};
     axios
-      .get("http://localhost:3002/api/post/posts/search", {
+      .get(`${API_ENDPOINT}/api/post/posts/search`, {
         params: { searchValue, tempSearchObj },
       })
       .then((response) => {
@@ -53,7 +55,9 @@ function FeedPosts() {
         <PostSearch searchPosts={searchPosts} />
         {posts?.length > 0 ? (
           posts.map((post) => {
-            return <Post key={post.id} post={post} />;
+            return (
+              <Post key={post.id} post={post} setDeleteCount={setDeleteCount} />
+            );
           })
         ) : loading ? (
           <div className="flex flex-row w-full justify-center">loading...</div>

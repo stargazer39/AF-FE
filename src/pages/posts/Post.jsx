@@ -17,28 +17,32 @@ import { orderActions } from "../../Store/post-slice";
 import { useSelector } from "react-redux";
 import DeletePostModal from "./DeletePostModal";
 import { useIsOverflow } from "../../hook/useIsOverflow";
+import { API_ENDPOINT } from "../../config";
+import moment from "moment";
 
 function Post({ post, setDeleteCount }) {
+  const ref = useRef();
   const navigate = useNavigate();
-  const [innerPost, setInnerPost] = useState(post);
-  const [seeMore, setSeeMore] = useState(false);
-  const debouncedValue = useDebounce(innerPost || {}, 1000);
   const dispatch = useDispatch();
+  const isOverflow = useIsOverflow(ref);
+  const user = useSelector((state) => state.user).currentUser;
+  const [innerPost, setInnerPost] = useState(post);
+  const debouncedValue = useDebounce(innerPost || {}, 1000);
+  const [seeMore, setSeeMore] = useState(false);
   const [changed, setChanged] = useState(false);
   const [selectedImage, setSelectedImage] = useState(undefined);
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const postId = post._id; // Replace with the ID of the post you want to like
-  const user = useSelector((state) => state.user).currentUser;
+  const postId = post._id;
   const userId = user?._id;
   const isCurrentUser = post.userId === user?._id;
-  const ref = useRef();
-  const isOverflow = useIsOverflow(ref);
+  const timeElapsed = moment(post.timePosted).fromNow();
 
+  console.log("post", post);
   useEffect(() => {
     // update post
     if (Object.keys(debouncedValue).length > 0 && changed) {
-      fetch(`http://localhost:3002/api/post/posts/${postId}`, {
+      fetch(`${API_ENDPOINT}/api/post/posts/${postId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -110,9 +114,12 @@ function Post({ post, setDeleteCount }) {
           <div className="h-12 w-12 border-2 border-gray-300 rounded-full mr-5 overflow-hidden ">
             <img src={imageUrl} alt="user" className="h-full w-full" />
           </div>
-          <span className="font-bold flex-grow">
-            {post?.userName || "unknown user"}
-          </span>
+          <div className="flex flex-col flex-grow">
+            <span className="font-bold">
+              {post?.userName || "unknown user"}
+            </span>
+            <span className="text-xs">{timeElapsed}</span>
+          </div>
           {isCurrentUser && (
             <div className="relative z-10">
               <MdOutlineMoreHoriz

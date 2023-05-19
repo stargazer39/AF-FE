@@ -12,6 +12,7 @@ import Footer from "../../components/Navbar/Footer";
 import cover from "../../images/post.png";
 import LoadingMod from "./loadingModal";
 import GetCurrentUser from "../../hooks/getCurrentUser";
+import { API_ENDPOINT } from "../../config";
 
 function CreatePost() {
   const [contentText, setContentText] = useState("");
@@ -21,7 +22,6 @@ function CreatePost() {
   const [imagesUrlList, setImagesUrlList] = useState([]);
   const [loading, setLoading] = useState(false);
   const myRefname = useRef(null);
-  const [message, setMessage] = useState("");
   const user =
     useSelector((state) => state.user).currentUser || GetCurrentUser();
   const userId = user?._id;
@@ -74,7 +74,6 @@ function CreatePost() {
     e.preventDefault();
 
     setLoading(true);
-    setMessage("loading...");
     let newArray = imagesList.map((image) =>
       uploadFile(image, genRandFileName(), "test")
     );
@@ -92,7 +91,7 @@ function CreatePost() {
       photoUrl: user?.photo_url,
     };
 
-    fetch("http://localhost:3002/api/post", {
+    fetch(`${API_ENDPOINT}/api/post`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -101,17 +100,19 @@ function CreatePost() {
     })
       .then((res) => res.json())
       .then((data) => {
-        setMessage("successful");
         navigate(-1);
       })
       .catch((err) => {
         console.log(err);
-        setMessage("failed");
       })
       .finally(() => {
         setLoading(false);
       });
   }
+  console.log(
+    "disabled",
+    imagesUrlList.length === 0 && contentText.trim() === ""
+  );
 
   return (
     <>
@@ -235,13 +236,16 @@ function CreatePost() {
                     }}
                     className="bg-gray-500 h-10 w-32 rounded hover:cursor-pointer hover:bg-gray-700 active:gray-800 flex flex-row justify-center items-center mr-4  mb-20 text-white text-center"
                   >
-                    Cancel
+                    CANCEL
                   </div>
                   <input
                     onClick={(e) => sendData(e)}
                     type="submit"
-                    value={"Create"}
-                    className="bg-blue-500 text-white h-10 w-32 cursor-pointer hover:bg-blue-600 active:blue-700 rounded mb-20 "
+                    value={"CREATE"}
+                    disabled={
+                      imagesUrlList.length === 0 && contentText.trim() === ""
+                    }
+                    className="bg-blue-500 disabled:bg-slate-400 text-white h-10 w-32 cursor-pointer hover:bg-blue-600 active:blue-700 rounded mb-20 "
                   />
                 </div>
               </div>
