@@ -1,10 +1,8 @@
 import { useParams } from "react-router";
 import { useState, useEffect } from "react";
 import axios from "axios";
-
+import { API_ENDPOINT } from "../../../config";
 import GroupPosts from "../../posts/GroupPosts";
-import Posts from "./Posts";
-import Question from "./Questions";
 import GroupQuestions from "../../questions/groupQuestions";
 import GetCurrentUser from "../../../hooks/getCurrentUser";
 
@@ -41,9 +39,7 @@ function CustTwoTab(props) {
 
   //get all groups
   useEffect(() => {
-    const response = axios.get(
-      `http://localhost:3002/api/post/groups/${_id}/posts`
-    );
+    const response = axios.get(`${API_ENDPOINT}/api/post/groups/${_id}/posts`);
     setPostList([response.data]);
     console.log([response.data]);
   }, []);
@@ -54,14 +50,22 @@ function CustTwoTab(props) {
         <div className="flex grid-flow-row w-4/6   pb-10 ">
           <div
             className="w-full text-xl flex items-center justify-center font-bold bg-red-400 p-4 border-solid border-b-4"
-            style={{ color: postButtonColor, borderColor: rc , backgroundColor : rc}}
+            style={{
+              color: postButtonColor,
+              borderColor: rc,
+              backgroundColor: rc,
+            }}
             onClick={postButton}
           >
             Posts
           </div>
           <div
             className="w-full text-xl font-bold flex items-center justify-center p-4 border-solid border-b-4 pl-2"
-            style={{ color: quesButtonColor, borderColor: qc,  backgroundColor : qc}}
+            style={{
+              color: quesButtonColor,
+              borderColor: qc,
+              backgroundColor: qc,
+            }}
             onClick={quesButton}
           >
             Questions
