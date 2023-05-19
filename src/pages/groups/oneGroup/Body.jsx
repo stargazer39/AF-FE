@@ -1,4 +1,8 @@
-import { useState } from "react";
+
+import { useParams } from "react-router";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { API_ENDPOINT } from "../../../config";
 
 import GroupPosts from "../../posts/GroupPosts";
 import GroupQuestions from "../../questions/groupQuestions";
@@ -28,6 +32,8 @@ function CustTwoTab(props) {
     setRc("#f1f1f1");
     setQc("#007aed55");
   };
+
+
 
   return (
     <div>

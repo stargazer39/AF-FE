@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import { API_ENDPOINT } from "../../../config";
 
 function CreateGroup() {
   const history = useNavigate();
@@ -20,7 +21,7 @@ function CreateGroup() {
   //get one item
   const data = async () => {
     const response = await axios.get(
-      `http://localhost:3002/api/group/getOneGroup/${_id}`
+      `${API_ENDPOINT}/api/group/getOneGroup/${_id}`
     );
     setState(response.data);
     console.log(response.data);
@@ -48,7 +49,7 @@ function CreateGroup() {
     axios.patch(`http://localhost:3002/api/group/updateGroup/${_id}`, data);
 
     alert("Product updated successfully..");
-    history("/user/viewmygroups");
+    history("/groups");
   };
 
   const backgroundImage =
@@ -75,6 +76,7 @@ function CreateGroup() {
             <label
               className="block uppercase tracking-wide text-gray-700 text-sm font-bold mb-2"
               for="grid-password"
+              htmlFor="groupName"
             >
               Group Name
             </label>
@@ -94,6 +96,7 @@ function CreateGroup() {
             <label
               className="block uppercase tracking-wide text-gray-700 text-sm font-bold mb-2"
               for="grid-state"
+              htmlFor="category"
             >
               Category
             </label>
@@ -126,6 +129,7 @@ function CreateGroup() {
         <label
           for="message"
           className="block uppercase tracking-wide text-gray-700 text-sm font-bold mb-2"
+          htmlFor="description"
         >
           Group Description
         </label>
@@ -139,7 +143,7 @@ function CreateGroup() {
           autoComplete="off"
           className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-5 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
         ></textarea>
-        
+
         <div className="place-self-end text-right">
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold mb-10 py-2 px-4 border border-blue-700 rounded mt-4 w-36"

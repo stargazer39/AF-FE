@@ -3,6 +3,7 @@ import axios from "axios";
 import { uploadFile } from "../../../firebase";
 import { useNavigate } from "react-router-dom";
 import GetCurrentUser from "../../../hooks/getCurrentUser";
+import { API_ENDPOINT } from "../../../config";
 
 function CreateGroup() {
   const file_input_ref = useRef(null);
@@ -13,7 +14,7 @@ function CreateGroup() {
   const [description, setDescription] = useState("");
 
   //get current user
-  const currentUser = GetCurrentUser()
+  const currentUser = GetCurrentUser();
 
   const history = useNavigate();
 
@@ -52,18 +53,16 @@ function CreateGroup() {
 
       try {
         uploadFile(file).then((res) => {
-
           const newGroup = {
             groupName,
             category,
             description,
             groupIcon: res,
-            adminId : currentUser._id,
+            adminId: currentUser._id,
           };
 
-          
           axios
-            .post("http://localhost:3002/api/group/addgroup", newGroup)
+            .post(`${API_ENDPOINT}/api/group/addgroup`, newGroup)
             .then(() => {
               alert("Group Created Successfully!!");
               history("/groups");
@@ -78,18 +77,23 @@ function CreateGroup() {
     }
   }
 
-  const backgroundImage = 'https://t4.ftcdn.net/jpg/03/98/45/23/360_F_398452372_dhh1fXfIZ7GYPJnQRwCl6IGY1sn53AUX.jpg';
+  const backgroundImage =
+    "https://t4.ftcdn.net/jpg/03/98/45/23/360_F_398452372_dhh1fXfIZ7GYPJnQRwCl6IGY1sn53AUX.jpg";
 
   return (
     <div className="grid h-screen place-items-center">
       <div
-            class="w-full object-cover" 
-            style={{
-              backgroundImage: `url(${backgroundImage})`,
-              height: "22rem",
-              opacity: 0.8,
-            }}
-          ><p class="font-bold text-4xl text-center opacity-100 text-black-700 pt-40">Create a Group</p></div>
+        className="w-full object-cover"
+        style={{
+          backgroundImage: `url(${backgroundImage})`,
+          height: "22rem",
+          opacity: 0.8,
+        }}
+      >
+        <p className="font-bold text-4xl text-center opacity-100 text-black-700 pt-40">
+          Create a Group
+        </p>
+      </div>
       <form
         className="w-full max-w-lg pt-10"
         onSubmit={handlesubmit}
@@ -99,7 +103,8 @@ function CreateGroup() {
           <div className="w-full px-3">
             <label
               className="block uppercase tracking-wide text-gray-700 font-bold mb-2 text-sm"
-              for="grid-password"
+              //for="grid-password"
+              htmlFor="groupName"
             >
               Group Name
             </label>
@@ -110,6 +115,7 @@ function CreateGroup() {
               onChange={(e) => setGroupName(e.target.value)}
               type="text"
               autoComplete="off"
+              name="groupName"
               required
             />
           </div>
@@ -118,7 +124,7 @@ function CreateGroup() {
           <div className="w-full px-3">
             <label
               className="block uppercase tracking-wide text-gray-700 text-sm font-bold mb-2"
-              for="grid-state"
+              for="category"
             >
               Category
             </label>
@@ -127,6 +133,7 @@ function CreateGroup() {
                 className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 id="category"
                 value={category}
+                name="category"
                 onChange={(e) => setCategory(e.target.value)}
               >
                 <option>Select</option>
@@ -150,7 +157,7 @@ function CreateGroup() {
         </div>
 
         <label
-          for="message"
+          htmlFor="description"
           className="block uppercase tracking-wide text-gray-700 text-sm font-bold mb-2"
         >
           Group Description
@@ -161,6 +168,7 @@ function CreateGroup() {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           type="text"
+          name="description"
           autoComplete="off"
           className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-5 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
         ></textarea>

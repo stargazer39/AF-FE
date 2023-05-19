@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "./../../../components/Navbar/Navbar";
 import Footer from "../../../components/Navbar/Footer";
-
+import { API_ENDPOINT } from "../../../config";
 import { useParams } from "react-router-dom";
 import Header from "./Header";
 import Body from "./Body";
@@ -13,7 +13,7 @@ function OneGroup() {
 
   //get all groups
   useEffect(() => {
-    fetch(`http://localhost:3002/api/group/getOneGroup/${_id}`)
+    fetch(`${API_ENDPOINT}/api/group/getOneGroup/${_id}`)
       .then((res) => {
         return res.json();
       })
